@@ -363,7 +363,7 @@
  }
  
  body {
-    background-image: url(https://www.designyourway.net/blog/wp-content/uploads/2009/11/vector-wallpaper-9.jpg);
+    background-image: url(https://www.designyourway.net/blog/wp-content/uploads/2009/11/vector-wallpaper-2.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -403,3 +403,20 @@
  #wrong {
     color: red;
  }
+
+ .spinnerLoader {
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+ }
+
+ // background-image: url(https://www.designyourway.net/blog/wp-content/uploads/2009/11/vector-wallpaper-2.jpg);
