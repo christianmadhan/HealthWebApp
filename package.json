@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "barba.js": "^1.0.0",
     "boostrap": "^2.0.0",
     "bootstrap": "^4.1.3",
     "jquery": "^3.3.1"
