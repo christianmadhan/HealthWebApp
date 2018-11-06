@@ -1,3 +1,4 @@
+
 var transparent = true;
 var transparentDemo = true;
 var fixedTop = false;
@@ -20,12 +21,33 @@ var $datetimepicker = $('.datetimepicker');
 var $datepicker = $('.datepicker');
 var $timepicker = $('.timepicker');
 
+var LoggedInUserID;
+var myHeartRataData = [];
+var myBloodPressureData = [];
+
 var seq = 0,
   delays = 80,
   durations = 500;
 var seq2 = 0,
   delays2 = 80,
   durations2 = 500;
+
+
+  class HealthData {
+    constructor(id, bloodPressure,heartRate,height,isSmoker,latitude,longitude,userID,weight) {
+ 
+      this.bloodPressure= bloodPressure;
+      this.heartRate = heartRate;
+      this.height = height;
+      this.id = id;
+      this.isSmoker = isSmoker;
+      this.latitude = latitude;
+      this.longitude = longitude;
+      this.userID = userID;
+      this.weight = weight;
+    }
+  }
+
 
 /*!
 
@@ -252,3 +274,95 @@ function hexToRGB(hex, alpha) {
     return "rgb(" + r + ", " + g + ", " + b + ")";
   }
 }
+
+
+
+/*!
+
+ =========================================================
+ * Custom JS building ChartJS
+ =========================================================
+
+*/ 
+
+new Chart(document.getElementById("line-chart"), {
+  type: 'line',
+  data: {
+    labels: [10,20,30,40,50,60,70,80,90,100,200,300,400,500],
+    datasets: [{ 
+        data: myHeartRataData,
+        label: "HeartRate",
+        borderColor: "#3e95cd",
+        fill: false
+      }, { 
+        data: myBloodPressureData,
+        label: "BloodPressure",
+        borderColor: "#8e5ea2",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'World population per region (in millions)'
+    }
+  }
+});
+
+window.onload = function(){
+  var something = localStorage.getItem("key");
+  LoggedInUserID = parseInt(something);
+   showAllCars();
+
+}
+
+
+function showAllCars() {
+  var myHeartRataData = [];
+  var myBloodPressureData = [];
+  let uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + LoggedInUserID;
+  axios.get(uri)
+      .then(function(response) {
+        response.data.forEach(element => {
+            myHeartRataData.push(element.heartRate);
+            myBloodPressureData.push(parseInt(element.bloodPressure));
+        });
+        console.log(myHeartRataData);
+        console.log(myBloodPressureData);
+      })
+      .catch(function (error){ // error in GET or in generateSuccess?
+         console.log(error);
+      });
+
+
+      new Chart(document.getElementById("line-chart"), {
+        type: 'line',
+        data: {
+          labels: [10,20,30,40,50,60,70,80,90,100,200,300,400,500],
+          datasets: [{ 
+              data: myHeartRataData,
+              label: "HeartRate",
+              borderColor: "#3e95cd",
+              fill: false
+            }, { 
+              data: myBloodPressureData,
+              label: "BloodPressure",
+              borderColor: "#8e5ea2",
+              fill: false
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Your Health Data'
+          }
+        }
+      });
+      
+}
+
+// hello.push(response.data.object);
+//var myHeartRataData = [];
+//var myBloodPressureData = [];

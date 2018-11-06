@@ -1,15 +1,13 @@
 import axios, {
     AxiosResponse,
     AxiosError
-}
-    from "../../node_modules/axios/index";
-import Axios from "../../node_modules/axios/index";
+} from "../../node_modules/axios/index";
 
-
-let list: Array<IPerson> = [];
+let UserID: number;
 
 
 interface IPerson {
+    id: number;
     isAdmin: number;
     username: string;
     personPassword: string;
@@ -146,8 +144,6 @@ $(function () {
 });
 
 
-
-
 let UserName: HTMLInputElement = <HTMLInputElement>document.getElementById("name");
 let PassWord: HTMLInputElement = <HTMLInputElement>document.getElementById("pass");
 let LogInBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("loginBtn");
@@ -155,8 +151,6 @@ let LogInBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("lo
 window.onload = function () {
     UserName.value = "";
     PassWord.value = "";
-
-
 };
 
 
@@ -164,11 +158,14 @@ function Login(): void {
 
     getJSONAsync().then(result => {
         if (result.status == 200) {
-
+            UserID =  result.data.id;
+            localStorage.setItem("key", UserID.toString());
             window.location.href = "dashboard.html";
         }
     }).catch(error => {
         DisplayWrongUsernameOrPassword();
+        console.log(error);
+        
     });
 
 
@@ -208,7 +205,7 @@ async function getJSONAsync() {
             username: inputUserName,
             password: inputPassword
         });
-        console.log(json);
+    
         return json;
     } catch (error) {
 
