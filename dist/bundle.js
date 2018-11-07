@@ -1981,6 +1981,17 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./src/404.html":
+/*!**********************!*\
+  !*** ./src/404.html ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "404.html";
+
+/***/ }),
+
 /***/ "./src/dashboard.html":
 /*!****************************!*\
   !*** ./src/dashboard.html ***!
@@ -2277,9 +2288,9 @@ module.exports = __webpack_require__.p + "user.html";
 /***/ }),
 
 /***/ 0:
-/*!****************************************************************************************************************************************************************************************!*\
-  !*** multi ./src/index.htm ./src/scss/styles.scss ./src/js/index.ts ./src/dashboard.html ./src/map.html ./src/notifications.html ./src/tables.html ./src/upgrade.html ./src/user.html ***!
-  \****************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** multi ./src/index.htm ./src/scss/styles.scss ./src/js/index.ts ./src/dashboard.html ./src/map.html ./src/notifications.html ./src/tables.html ./src/upgrade.html ./src/user.html ./src/404.html ***!
+  \*******************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2291,7 +2302,8 @@ __webpack_require__(/*! ./src/map.html */"./src/map.html");
 __webpack_require__(/*! ./src/notifications.html */"./src/notifications.html");
 __webpack_require__(/*! ./src/tables.html */"./src/tables.html");
 __webpack_require__(/*! ./src/upgrade.html */"./src/upgrade.html");
-module.exports = __webpack_require__(/*! ./src/user.html */"./src/user.html");
+__webpack_require__(/*! ./src/user.html */"./src/user.html");
+module.exports = __webpack_require__(/*! ./src/404.html */"./src/404.html");
 
 
 /***/ })

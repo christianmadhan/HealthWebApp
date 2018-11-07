@@ -313,12 +313,17 @@ new Chart(document.getElementById("line-chart"), {
 window.onload = function(){
   var something = localStorage.getItem("key");
   LoggedInUserID = parseInt(something);
-   showAllCars();
+  alert(LoggedInUserID);
+  if(LoggedInUserID != Number ){
+    window.location.href = "404.html"; 
+  }
+  console.log(LoggedInUserID);
+  CreateChartData();
 
 }
 
 
-function showAllCars() {
+function CreateChartData() {
   var myHeartRataData = [];
   var myBloodPressureData = [];
   let uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + LoggedInUserID;
