@@ -1,7 +1,7 @@
 /*
-  A webpack configuration file designed
-  for webdevelopment with typescript and scss
-  by Ebbe Vang, evang.dk
+  Modified version of Webpack.
+  BerthaProject.
+  Team: Christian Witt, Patrik Ando, Daniel Eckmann
 */
 
 const path = require('path');
