@@ -5,16 +5,18 @@
 */
 
 const path = require('path');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
  
 module.exports = {
   // which files should webpack watch and transpile
   entry:
   {
-    index : './src/js/index.ts',
-    test : './src/js/test.ts'
-    
-
+    index: ['./src/js/index.ts','./src/index.htm','./src/scss/indexStyle.scss',],
+    dashboard: ['./src/dashboard.html','./src/js/dashboard.ts','./src/scss/dashboardStyle.scss'],
+    map: ['./src/map.html','./src/js/map.ts'],
+    notifications: ['./src/notifications.html','./src/js/notifications.ts'],
+    tables: ['./src/tables.html','./src/js/tables.ts'],
+    user: ['./src/user.html','./src/js/user.ts'],
   },
   module: {
     // rules webpack should follow when watching...
@@ -28,7 +30,7 @@ module.exports = {
     {
         //(s)css files wil be handled by the scss-loader and then send to the css-loader and fuinally saved as a bundle
         test:/\.(s*)css$/,
-        use:[{loader :'file-loader', options: {name: 'bundle.css'}}, 'extract-loader', 'css-loader', 'sass-loader']
+        use:[{loader :'file-loader', options: {name: "[name].bundle.css"}}, 'extract-loader', 'css-loader', 'sass-loader']
     },
     {
       // html files will be copied to the dist folder

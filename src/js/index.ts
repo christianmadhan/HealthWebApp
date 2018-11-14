@@ -3,6 +3,9 @@ import axios, {
     AxiosError
 } from "../../node_modules/axios/index";
 
+import * as $  from "../../node_modules/jquery/dist/jquery";
+
+
 let UserID: number;
 
 
@@ -24,13 +27,13 @@ $(function () {
     $(".input input").focus(function () {
 
         $(this).parent(".input").each(function () {
-            $("label", this).css({
+            $("label").css({
                 "line-height": "18px",
                 "font-size": "18px",
                 "font-weight": "100",
                 "top": "0px"
             })
-            $(".spin", this).css({
+            $(".spin").css({
                 "width": "100%"
             })
         });
@@ -40,7 +43,7 @@ $(function () {
         })
         if ($(this).val() == "") {
             $(this).parent(".input").each(function () {
-                $("label", this).css({
+                $("label").css({
                     "line-height": "60px",
                     "font-size": "24px",
                     "font-weight": "300",
@@ -51,7 +54,7 @@ $(function () {
         }
     });
 
-    $(".button").click(function (e) {
+    $(".button").click(function (e:any) {
         var pX = e.pageX,
             pY = e.pageY,
             oX = parseInt($(this).offset().left),
@@ -65,7 +68,7 @@ $(function () {
             "left": "-250px",
 
         }, 600);
-        $("button", this).addClass('active');
+        $("button").addClass('active');
 
     })
 

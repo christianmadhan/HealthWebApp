@@ -313,10 +313,9 @@ new Chart(document.getElementById("line-chart"), {
 window.onload = function(){
   var something = localStorage.getItem("key");
   LoggedInUserID = parseInt(something);
-  //alert(LoggedInUserID);
-  //if(LoggedInUserID != Number ){
-    //window.location.href = "404.html"; 
-  //}
+  if(LoggedInUserID == undefined ){
+    window.location.href = "404.html"; 
+  }
   console.log(LoggedInUserID);
   CreateChartData();
 

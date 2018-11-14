@@ -81,22 +81,46 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/test.ts");
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/js/test.ts":
+/***/ "./src/js/user.ts":
 /*!************************!*\
-  !*** ./src/js/test.ts ***!
+  !*** ./src/js/user.ts ***!
   \************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-console.log("I am the test class");
+console.log("testing");
+
+
+/***/ }),
+
+/***/ "./src/user.html":
+/*!***********************!*\
+  !*** ./src/user.html ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "user.html";
+
+/***/ }),
+
+/***/ 5:
+/*!**********************************************!*\
+  !*** multi ./src/user.html ./src/js/user.ts ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ./src/user.html */"./src/user.html");
+module.exports = __webpack_require__(/*! ./src/js/user.ts */"./src/js/user.ts");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=test.bundle.js.map
+//# sourceMappingURL=user.bundle.js.map
