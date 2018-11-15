@@ -28187,6 +28187,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../node_modules/axios/index */ "./node_modules/axios/index.js");
 /* harmony import */ var _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_axios_index__WEBPACK_IMPORTED_MODULE_3__);
 
+// Works when compiled.
 
 
 
@@ -28264,6 +28265,7 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(fu
         var uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + LoggedInUserID;
         _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_3___default.a.get(uri)
             .then(function (response) {
+            // Works when compiled
             response.data.forEach(function (element) {
                 myHeartRataData.push(element.heartRate);
                 //myBloodPressureData.push(parseInt(element.bloodPressure));
@@ -28446,19 +28448,6 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).on('clic
         });
         $html.addClass('nav-open');
         blackDashboard.misc.navbar_menu_visible = 1;
-    }
-});
-_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(window).resize(function () {
-    // reset the seq for charts drawing animations
-    seq = seq2 = 0;
-    if ($full_screen_map.length == 0 && _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.bd-docs').length == 0) {
-        var isExpanded = $navbar.find('[data-toggle="collapse"]').attr("aria-expanded");
-        if ($navbar.hasClass('bg-white') && _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(window).width() > 991) {
-            $navbar.removeClass('bg-white').addClass('navbar-transparent');
-        }
-        else if ($navbar.hasClass('navbar-transparent') && _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(window).width() < 991 && isExpanded != "false") {
-            $navbar.addClass('bg-white').removeClass('navbar-transparent');
-        }
     }
 });
 var blackDashboard = {

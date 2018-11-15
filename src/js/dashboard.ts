@@ -1,5 +1,6 @@
 import * as $  from "../../node_modules/jquery/dist/jquery";
- import {Chart}  from "../../node_modules/chart.js/dist/Chart.js"; 
+// Works when compiled.
+import {Chart}  from "../../node_modules/chart.js/dist/Chart.js"; 
 import * as PerfectScrollbar from "../../node_modules/perfect-scrollbar/dist/perfect-scrollbar";
 import axios, {
   AxiosResponse,
@@ -94,6 +95,7 @@ $(document).ready(function() {
       let uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + LoggedInUserID;
       axios.get(uri)
       .then(function(response) {
+        // Works when compiled
         response.data.forEach(element => {
             myHeartRataData.push(element.heartRate);
             //myBloodPressureData.push(parseInt(element.bloodPressure));
@@ -307,20 +309,6 @@ $(document).on('click', '.navbar-toggle', function() {
 
     $html.addClass('nav-open');
     blackDashboard.misc.navbar_menu_visible = 1;
-  }
-});
-
-$(window).resize(function() {
-  // reset the seq for charts drawing animations
-  seq = seq2 = 0;
-
-  if ($full_screen_map.length == 0 && $('.bd-docs').length == 0) {
-    var isExpanded = $navbar.find('[data-toggle="collapse"]').attr("aria-expanded");
-    if ($navbar.hasClass('bg-white') && $(window).width() > 991) {
-      $navbar.removeClass('bg-white').addClass('navbar-transparent');
-    } else if ($navbar.hasClass('navbar-transparent') && $(window).width() < 991 && isExpanded != "false") {
-      $navbar.addClass('bg-white').removeClass('navbar-transparent');
-    }
   }
 });
 
