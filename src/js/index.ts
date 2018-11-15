@@ -157,6 +157,16 @@ window.onload = function () {
 };
 
 
+/*
+    In the login function we just need to evaluated the status code
+    which the getJSOnAsync function returns (Look at the button for doc.). The method returns
+    a status code an a object. First we check for the status code to check if it's 200.
+    if that's the case, then we want to know which user is logged in. We save the id of the 
+    user which is logged in, in a variable and then store that variable in the local storage.
+    the local storage behave the same way as a cookie. After we have storage the data, we
+    redirect the user to the dashboard page.
+
+*/
 function Login(): void {
 
     getJSONAsync().then(result => {
@@ -175,6 +185,12 @@ function Login(): void {
 
 }
 
+/*
+    If the user input was wrong we want to show
+    that the login attemt was failed.
+    so we change the icon on the button to a skull
+    and then show some text which is hidden in the html as default.
+*/
 function DisplayWrongUsernameOrPassword() {
     var x = document.getElementById("wrong");
     if (x.style.display === "none") {
@@ -187,13 +203,15 @@ function DisplayWrongUsernameOrPassword() {
 
 LogInBtn.addEventListener("click", Login);
 
-
-// Wrong login
-// document.getElementById("checkNot").className = 'fas fa-skull-crossbones';
-
 // Async/Await approach
-
 // The async keyword will automatically create a new Promise and return it.
+/* 
+    This method post the data, that the user has typed in the username and password fields.
+    It post it to a web api, in a controller authenticate the data. In the controller, we
+    made a foreach loop going through each user object and test if the data is valid.
+    if both username and password is valid, it will respon with a status code of 200
+    and the user object, where the password is set to null.
+*/
 async function getJSONAsync() {
 
     try {

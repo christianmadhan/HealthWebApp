@@ -1,6 +1,10 @@
 import * as $  from "../../node_modules/jquery/dist/jquery";
-import {Chart}  from "../../node_modules/chart.js/dist/Chart.js";
+ import {Chart}  from "../../node_modules/chart.js/dist/Chart.js"; 
 import * as PerfectScrollbar from "../../node_modules/perfect-scrollbar/dist/perfect-scrollbar";
+import axios, {
+  AxiosResponse,
+  AxiosError
+} from "../../node_modules/axios/index";
 
 
 let transparent : boolean = true;
@@ -24,18 +28,12 @@ let $full_screen_map = $('.full-screen-map');
 let $datetimepicker = $('.datetimepicker');
 let $datepicker = $('.datepicker');
 let $timepicker = $('.timepicker');
+let LoggedInUserID:any;
 
+/* 
 
-let HealthChart: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("line-chart");
-
-
-var seq = 0,
-  delays = 80,
-  durations = 500;
-var seq2 = 0,
-  delays2 = 80,
-  durations2 = 500;
-
+The logic of data tables in SQL
+on comment if you need it.
 
   interface HealthData {   
       bloodPressure: number;
@@ -61,23 +59,123 @@ var seq2 = 0,
     BirthDate: Date;
 }
 
+*/
+
+
 
 /*!
 
  =========================================================
- * Black Dashboard - v1.0.0
+ * Dashboard - v1.0.0
  =========================================================
 
- * Product Page: https://www.creative-tim.com/product/black-dashboard
- * Copyright 2018 Creative Tim (http://www.creative-tim.com)
-
- * Coded by www.creative-tim.com
+ * Coded by Team BerthaProject
 
  =========================================================
-
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
  */
+
+
+
+
+$(document).ready(function() {
+  var getStoredUserID = localStorage.getItem("key");
+   LoggedInUserID = parseInt(getStoredUserID);
+ });
+
+
+// Show HeartRate Chart
+ $(document).ready(function() {
+    $("#HeartBtn").click(function(){
+      document.getElementById("line-chart").style.display = "block";
+      document.getElementById("myCardDiv").style.display = "block";
+      let myHeartRataData:any = [];
+
+      let uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + LoggedInUserID;
+      axios.get(uri)
+      .then(function(response) {
+        response.data.forEach(element => {
+            myHeartRataData.push(element.heartRate);
+            //myBloodPressureData.push(parseInt(element.bloodPressure));
+        });
+
+      var canvasChart = document.getElementById("line-chart");
+      new Chart(canvasChart, {
+        type: 'line',
+        data: {
+          labels: [10,20,30,40,50,60,70,80,90,100,200,300,400,500],
+          datasets: [{ 
+              data: myHeartRataData,
+              label: "HeartRate",
+              borderColor: "#3e95cd",
+              fill: true
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Your Health Data'
+          }
+        }
+      });
+
+
+      })
+      .catch(function (error){ // error in GET or
+         console.log(error);
+      });      
+
+    }); 
+});
+
+
+
+
+$(document).ready(function() {
+    $("#BloodPressureBtn").click(function(){
+      document.getElementById("line-chart").style.display = "block";
+      document.getElementById("myCardDiv").style.display = "block";
+      let myBloodPressureData:any = [];
+
+      let uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + LoggedInUserID;
+      axios.get(uri)
+      .then(function(response) {
+        response.data.forEach(element =>  {
+            //myHeartRataData.push(element.heartRate);
+            myBloodPressureData.push(parseInt(element.bloodPressure));
+        });
+
+      var canvasChart = document.getElementById("line-chart");
+      new Chart(canvasChart, {
+        type: 'line',
+        data: {
+          labels: [10,20,30,40,50,60,70,80,90,100,200,300,400,500],
+          datasets: [{ 
+              data: myBloodPressureData,
+              label: "BloodPressure",
+              borderColor: "#8e5ea2",
+              fill: true
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Your Health Data'
+          }
+        }
+      });
+
+
+      })
+      .catch(function (error){ // error in GET or
+         console.log(error);
+      });      
+
+    }); 
+});
+
 
 (function() {
   var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
@@ -148,7 +246,9 @@ $(document).ready(function() {
   blackDashboard.initMinimizeSidebar();
 
   $navbar = $('.navbar[color-on-scroll]');
-  scroll_distance = $navbar.attr('color-on-scroll') || 500;
+  /* 
+  // If something with scrolling isn't working: oncomment this code to check if it helps.
+    let scroll_distance = $navbar.attr('color-on-scroll') || 500;
 
   // Check if we have the class "navbar-color-on-scroll" then add the function to remove the class "navbar-transparent" so it will transform to a plain color.
   if ($('.navbar[color-on-scroll]').length != 0) {
@@ -164,15 +264,19 @@ $(document).ready(function() {
 
   // Activate bootstrapSwitch
   $('.bootstrap-switch').each(function() {
-    $this = $(this);
-    data_on_label = $this.data('on-label') || '';
-    data_off_label = $this.data('off-label') || '';
+   let $this = $(this);
+   let data_on_label = $this.data('on-label') || '';
+   let data_off_label = $this.data('off-label') || '';
 
     $this.bootstrapSwitch({
       onText: data_on_label,
       offText: data_off_label
     });
   });
+  
+  
+    End of comment 
+  */
 });
 
 $(document).on('click', '.navbar-toggle', function() {
@@ -220,7 +324,7 @@ $(window).resize(function() {
   }
 });
 
-blackDashboard = {
+let blackDashboard = {
   misc: {
     navbar_menu_visible: 0
   },
@@ -236,11 +340,9 @@ blackDashboard = {
       if (sidebar_mini_active == true) {
         $('body').removeClass('sidebar-mini');
         sidebar_mini_active = false;
-        blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
       } else {
         $('body').addClass('sidebar-mini');
         sidebar_mini_active = true;
-        blackDashboard.showSidebarMessage('Sidebar mini activated...');
       }
 
       // we simulate the window Resize so the charts will get updated in realtime.
@@ -255,7 +357,9 @@ blackDashboard = {
     });
   },
 
-  showSidebarMessage: function(message) {
+  /* 
+    // Not sure if we need this code
+    showSidebarMessage: function(message: any) {
     try {
       $.notify({
         icon: "tim-icons ui-1_bell-53",
@@ -273,10 +377,13 @@ blackDashboard = {
     }
 
   }
+  
+  
+  */
 
 };
 
-function hexToRGB(hex, alpha) {
+function hexToRGB(hex:any, alpha:any) {
   var r = parseInt(hex.slice(1, 3), 16),
     g = parseInt(hex.slice(3, 5), 16),
     b = parseInt(hex.slice(5, 7), 16);
@@ -288,18 +395,3 @@ function hexToRGB(hex, alpha) {
   }
 }
 
-
-
-/*!
-
- =========================================================
- * Custom JS building ChartJS
- =========================================================
-
-*/ 
-
-
-
-// hello.push(response.data.object);
-//var myHeartRataData = [];
-//var myBloodPressureData = [];

@@ -16,6 +16,7 @@
   <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="assets/css/black-dashboard.min.css" rel="stylesheet" />
+  <link href="dashboardStyle.bundle.css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 
 </head>
@@ -171,8 +172,12 @@
       <div class="content">
         
         <!-- ---------------------------------/\----------------------------------- -->
-        <div class="card-header">
-          <canvas id="line-chart"></canvas>
+        <p>
+          <button id="HeartBtn" class="btn">Heartrate Data</button>
+          <button id="BloodPressureBtn" class="btn">BloodPressure Data</button>
+        </p>
+        <div class="card-header" style="display:none" id="myCardDiv">
+          <canvas id="line-chart" style="display:none"></canvas>
         </div>
 
         <!-- ---------------------------------/\----------------------------------- -->
@@ -225,62 +230,6 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="dashboard.bundle.js"></script>
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> 
-  <script>
-
-  $(document).ready(function() {
-  var getStoredUserID = localStorage.getItem("key");
-  LoggedInUserID = parseInt(getStoredUserID);
-  CreateChartData();
- });
-
-
-function CreateChartData() {
-  let myHeartRataData = [];
-  let myBloodPressureData = [];
-
-    let uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + LoggedInUserID;
-      axios.get(uri)
-      .then(function(response) {
-        response.data.forEach(element => {
-            myHeartRataData.push(element.heartRate);
-            myBloodPressureData.push(parseInt(element.bloodPressure));
-        });
-
-      var canvasChart = document.getElementById("line-chart");
-      new Chart(canvasChart, {
-        type: 'line',
-        data: {
-          labels: [10,20,30,40,50,60,70,80,90,100,200,300,400,500],
-          datasets: [{ 
-              data: myHeartRataData,
-              label: "HeartRate",
-              borderColor: "#3e95cd",
-              fill: true
-            }, { 
-              data: myBloodPressureData,
-              label: "BloodPressure",
-              borderColor: "#8e5ea2",
-              fill: true
-            }
-          ]
-        },
-        options: {
-          title: {
-            display: true,
-            text: 'Your Health Data'
-          }
-        }
-      });
-
-
-      })
-      .catch(function (error){ // error in GET or
-         console.log(error);
-      });      
-
-}
-
-  </script>
 
 </body>
 
