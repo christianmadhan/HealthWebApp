@@ -133,7 +133,7 @@ $(document).ready(function() {
 
 
 
-
+// Show bloodpressure data
 $(document).ready(function() {
     $("#BloodPressureBtn").click(function(){
       document.getElementById("line-chart").style.display = "block";
