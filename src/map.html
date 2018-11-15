@@ -16,8 +16,10 @@
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="../assets/css/black-dashboard.min.css" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="mapStyle.bundle.css">
 </head>
 
 <body class="">
@@ -163,9 +165,14 @@
         </div>
       </div>
       <!-- End Navbar -->
-      <div class="content">
- 
+      <!--CONTENT-->
+      <div class="content"> 
+        <div class="card" >
+            <div id="mapid"></div>
+        </div>
       </div>
+      </div>
+      <!--Content-->
       <footer class="footer">
         <div class="container-fluid">
           <ul class="nav">
@@ -208,6 +215,7 @@
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/black-dashboard.js"></script>
+  <script src="map.bundle.js"></script>
 
 </body>
 
