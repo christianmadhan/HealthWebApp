@@ -157,6 +157,7 @@ window.onload = function () {
 };
 
 
+
 /*
     In the login function we just need to evaluated the status code
     which the getJSOnAsync function returns (Look at the button for doc.). The method returns
