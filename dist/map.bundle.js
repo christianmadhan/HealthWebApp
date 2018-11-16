@@ -24372,18 +24372,14 @@ _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["tileLayer"]
         'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     id: 'mapbox.streets'
 }).addTo(mymap);
-_node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"]([51.5, -0.09]).addTo(mymap)
+/*
+https://www.latlong.net/
+You can find lat and long on this website by typing in adresses.
+use that location to put a marker on your map as shown below
+
+*/
+_node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"]([55.625004, 12.074238]).addTo(mymap)
     .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
-_node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["circle"]([51.508, -0.11], 500, {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(mymap).bindPopup("I am a circle.");
-_node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["polygon"]([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-]).addTo(mymap).bindPopup("I am a polygon.");
 var popup = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["popup"]();
 function onMapClick(e) {
     popup
@@ -24392,6 +24388,15 @@ function onMapClick(e) {
         .openOn(mymap);
 }
 mymap.on('click', onMapClick);
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+    _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"](e.latlng).addTo(mymap)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+    _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["circle"](e.latlng, radius).addTo(mymap);
+}
+mymap.on('locationfound', onLocationFound);
+// If you give consent it will show your exact location
+mymap.locate({ setView: true, maxZoom: 16 });
 
 
 /***/ }),
