@@ -7,28 +7,14 @@ import axios, {
   AxiosError
 } from "../../node_modules/axios/index";
 
+let profilePic: HTMLImageElement = <HTMLImageElement>document.getElementById("ProfileAvatar");
 
-let transparent : boolean = true;
-let transparentDemo : boolean = true;
-let fixedTop : boolean = false;
-
-let navbar_initialized : boolean = false;
-let backgroundOrange : boolean = false;
 let sidebar_mini_active : boolean = false;
-let toggle_initialized : boolean = false;
 
 let $html = $('html');
-let $body = $('body');
-let $navbar_minimize_fixed = $('.navbar-minimize-fixed');
-let $collapse = $('.collapse');
+
 let $navbar = $('.navbar');
-let $tagsinput = $('.tagsinput');
-let $selectpicker = $('.selectpicker');
-let $navbar_color = $('.navbar[color-on-scroll]');
-let $full_screen_map = $('.full-screen-map');
-let $datetimepicker = $('.datetimepicker');
-let $datepicker = $('.datepicker');
-let $timepicker = $('.timepicker');
+
 let LoggedInUserID:any;
 
 /* 
@@ -82,6 +68,7 @@ on comment if you need it.
 $(document).ready(function() {
   var getStoredUserID = localStorage.getItem("key");
    LoggedInUserID = parseInt(getStoredUserID);
+   profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
  });
 
 
@@ -96,7 +83,7 @@ $(document).ready(function() {
       axios.get(uri)
       .then(function(response) {
         // Works when compiled
-        response.data.forEach(element => {
+        response.data.forEach((element:any) => {
             myHeartRataData.push(element.heartRate);
             //myBloodPressureData.push(parseInt(element.bloodPressure));
         });
@@ -143,7 +130,7 @@ $(document).ready(function() {
       let uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + LoggedInUserID;
       axios.get(uri)
       .then(function(response) {
-        response.data.forEach(element =>  {
+        response.data.forEach((element:any) =>  {
             //myHeartRataData.push(element.heartRate);
             myBloodPressureData.push(parseInt(element.bloodPressure));
         });
@@ -152,7 +139,7 @@ $(document).ready(function() {
       new Chart(canvasChart, {
         type: 'line',
         data: {
-          labels: [10,20,30,40,50,60,70,80,90,100,200,300,400,500],
+          labels: [40,50,60,70,80,90,100],
           datasets: [{ 
               data: myBloodPressureData,
               label: "BloodPressure",
@@ -162,10 +149,20 @@ $(document).ready(function() {
           ]
         },
         options: {
-          title: {
-            display: true,
-            text: 'Your Health Data'
-          }
+            scales: {
+              yAxes: [{
+                scaleLabel: {
+                  display:true,
+                  labelString:'Systolic'
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display:true,
+                  labelString:'Diastolic'
+                }
+              }]
+            }
         }
       });
 

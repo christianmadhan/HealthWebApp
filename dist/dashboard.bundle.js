@@ -28191,25 +28191,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var transparent = true;
-var transparentDemo = true;
-var fixedTop = false;
-var navbar_initialized = false;
-var backgroundOrange = false;
+var profilePic = document.getElementById("ProfileAvatar");
 var sidebar_mini_active = false;
-var toggle_initialized = false;
 var $html = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('html');
-var $body = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('body');
-var $navbar_minimize_fixed = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.navbar-minimize-fixed');
-var $collapse = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.collapse');
 var $navbar = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.navbar');
-var $tagsinput = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.tagsinput');
-var $selectpicker = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.selectpicker');
-var $navbar_color = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.navbar[color-on-scroll]');
-var $full_screen_map = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.full-screen-map');
-var $datetimepicker = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.datetimepicker');
-var $datepicker = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.datepicker');
-var $timepicker = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.timepicker');
 var LoggedInUserID;
 /*
 
@@ -28255,6 +28240,7 @@ on comment if you need it.
 _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
     var getStoredUserID = localStorage.getItem("key");
     LoggedInUserID = parseInt(getStoredUserID);
+    profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
 });
 // Show HeartRate Chart
 _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
@@ -28313,7 +28299,7 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(fu
             new _node_modules_chart_js_dist_Chart_js__WEBPACK_IMPORTED_MODULE_1__["Chart"](canvasChart, {
                 type: 'line',
                 data: {
-                    labels: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500],
+                    labels: [40, 50, 60, 70, 80, 90, 100],
                     datasets: [{
                             data: myBloodPressureData,
                             label: "BloodPressure",
@@ -28323,9 +28309,19 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(fu
                     ]
                 },
                 options: {
-                    title: {
-                        display: true,
-                        text: 'Your Health Data'
+                    scales: {
+                        yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Systolic'
+                                }
+                            }],
+                        xAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Diastolic'
+                                }
+                            }]
                     }
                 }
             });

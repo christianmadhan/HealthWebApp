@@ -2,6 +2,7 @@ import axios, {
     AxiosResponse,
     AxiosError
 } from "../../node_modules/axios";
+import * as $  from "../../node_modules/jquery/dist/jquery";
 
 interface IHealthData {
     id: number;
@@ -18,6 +19,7 @@ interface IHealthData {
 /* GET ALL HEALTHDATA */
 
 let getdatabtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("getdatabutton");
+let profilePic: HTMLImageElement = <HTMLImageElement>document.getElementById("ProfileAvatar");
 getdatabtn.addEventListener("click", doGetAll);
 
 let localuserid: number = parseInt(localStorage.getItem("key"));
@@ -47,3 +49,9 @@ function doGetAll(): void {
             console.log(error);
         })
 }
+
+$(document).ready(function() {
+    let getStoredUserID = localStorage.getItem("key");
+    let LoggedInUserID = parseInt(getStoredUserID);
+     profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
+   });
