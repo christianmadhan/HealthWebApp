@@ -7,10 +7,10 @@ interface IHealthData {
     id: number;
     weight: number;
     height: number;
-    issmoker: number;
-    bloodpressure: string;
-    heartrate: number;
-    userid: number;
+    isSmoker: number;
+    bloodPressure: string;
+    heartRate: number;
+    userID: number;
     latitude: number;
     longitude: number;
 }
@@ -30,9 +30,13 @@ function doGetAll(): void {
         .then(function (response: AxiosResponse<IHealthData[]>): void {
             console.log(response.data);
             let result: string = "";
+            let smokerstatus: string = "No data";
 
             response.data.forEach((hd: IHealthData) => {
-                result += "<tr><td>" + hd.id + "</td><td>" + hd.weight + " kg</td><td>" + hd.height + " cm</td><td>" + hd.issmoker + "</td><td>" + hd.bloodpressure + " mmHg</td><td>" + hd.heartrate + " bpm</td><td>" + hd.latitude + "</td><td>" + hd.longitude + "</td></tr>";
+                if (hd.isSmoker === 0){ smokerstatus = "No" } else { smokerstatus = "Yes" };
+                if (hd.userID === localuserid){
+                    result += "<tr><td>" + hd.id + "</td><td>" + hd.weight + " kg</td><td>" + hd.height + " cm</td><td>" + smokerstatus + "</td><td>" + hd.bloodPressure + " mmHg</td><td>" + hd.heartRate + " bpm</td><td>" + hd.latitude + "</td><td>" + hd.longitude + "</td></tr>";
+                }                
             });
             console.log(result);
 

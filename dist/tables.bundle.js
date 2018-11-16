@@ -2004,8 +2004,18 @@ function doGetAll() {
         .then(function (response) {
         console.log(response.data);
         var result = "";
+        var smokerstatus = "No data";
         response.data.forEach(function (hd) {
-            result += "<tr><td>" + hd.id + "</td><td>" + hd.weight + " kg</td><td>" + hd.height + " cm</td><td>" + hd.issmoker + "</td><td>" + hd.bloodpressure + " mmHg</td><td>" + hd.heartrate + " bpm</td><td>" + hd.latitude + "</td><td>" + hd.longitude + "</td></tr>";
+            if (hd.isSmoker === 0) {
+                smokerstatus = "No";
+            }
+            else {
+                smokerstatus = "Yes";
+            }
+            ;
+            if (hd.userID === localuserid) {
+                result += "<tr><td>" + hd.id + "</td><td>" + hd.weight + " kg</td><td>" + hd.height + " cm</td><td>" + smokerstatus + "</td><td>" + hd.bloodPressure + " mmHg</td><td>" + hd.heartRate + " bpm</td><td>" + hd.latitude + "</td><td>" + hd.longitude + "</td></tr>";
+            }
         });
         console.log(result);
         var tablecontent = document.getElementById("simpletablecontent");
