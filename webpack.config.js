@@ -13,7 +13,7 @@ module.exports = {
   {
     index: ['./src/js/index.ts','./src/index.htm','./src/scss/indexStyle.scss',],
     dashboard: ['./src/dashboard.html','./src/js/dashboard.ts','./src/scss/dashboardStyle.scss'],
-    map: ['./src/map.html','./src/js/map.ts'],
+    map: ['./src/map.html','./src/js/map.ts','./src/scss/mapStyle.scss'],
     notifications: ['./src/notifications.html','./src/js/notifications.ts'],
     tables: ['./src/tables.html','./src/js/tables.ts'],
     user: ['./src/user.html','./src/js/user.ts'],

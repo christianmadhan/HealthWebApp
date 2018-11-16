@@ -12,6 +12,7 @@
   "author": "Ebbe Vang, evang.dk",
   "license": "ISC",
   "devDependencies": {
+    "@types/jquery": "^3.3.22",
     "browser-sync": "^2.24.6",
     "browser-sync-webpack-plugin": "^2.2.2",
     "css-loader": "^1.0.0",
@@ -32,6 +33,8 @@
     "boostrap": "^2.0.0",
     "bootstrap": "^4.1.3",
     "chart.js": "^2.7.3",
-    "jquery": "^3.3.1"
+    "jquery": "^3.3.1",
+    "leaflet": "^1.3.4",
+    "perfect-scrollbar": "^1.4.0"
   }
 }

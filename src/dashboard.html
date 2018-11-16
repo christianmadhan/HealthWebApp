@@ -5,9 +5,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="assets/img/favicon.ico">
   <title>
-    Black Dashboard by Creative Tim
+    BerthaProject
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -16,6 +16,8 @@
   <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="assets/css/black-dashboard.min.css" rel="stylesheet" />
+  <link href="dashboardStyle.bundle.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 
 </head>
 
@@ -124,7 +126,7 @@
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <div class="photo">
-                    <img src="../assets/img/anime3.png" alt="Profile Photo">
+                    <img src="../assets/img/avatar1.jpg" alt="Profile Photo">
                   </div>
                   <b class="caret d-none d-lg-block d-xl-block"></b>
                   <p class="d-lg-none">
@@ -170,8 +172,12 @@
       <div class="content">
         
         <!-- ---------------------------------/\----------------------------------- -->
-        <div class="card-header">
-          <canvas id="line-chart"></canvas>
+        <p>
+          <button id="HeartBtn" class="btn">Heartrate Data</button>
+          <button id="BloodPressureBtn" class="btn">BloodPressure Data</button>
+        </p>
+        <div class="card-header" style="display:none" id="myCardDiv">
+          <canvas id="line-chart" style="display:none"></canvas>
         </div>
 
         <!-- ---------------------------------/\----------------------------------- -->
@@ -222,7 +228,8 @@
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="assets/js/black-dashboard.js"></script>
+  <script src="dashboard.bundle.js"></script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> 
 
 </body>
 
