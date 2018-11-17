@@ -1,7 +1,24 @@
 import * as $  from "../../node_modules/jquery/dist/jquery";
 import * as L from "../../node_modules/leaflet/dist/leaflet-src";
+import axios, {
+  AxiosResponse,
+  AxiosError
+} from "../../node_modules/axios/index";
 let profilePic: HTMLImageElement = <HTMLImageElement>document.getElementById("ProfileAvatar");
 let leafMap: HTMLDivElement = <HTMLDivElement>document.getElementById("mapid");
+
+interface IHealthData {
+  id: number;
+  weight: number;
+  height: number;
+  isSmoker: number;
+  bloodPressure: string;
+  heartRate: number;
+  userID: number;
+  latitude: number;
+  longitude: number;
+}
+
 
 $(document).ready(function() {
     let getStoredUserID = localStorage.getItem("key");
@@ -19,7 +36,38 @@ $(document).ready(function() {
 			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
 			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 		id: 'mapbox.streets'
-	}).addTo(mymap);
+  }).addTo(mymap);
+
+
+  
+
+  function loadUserData(id : number) : void {
+    try {
+        let uri: string = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + id;
+        
+        axios.get<IHealthData[]>(uri)
+        .then((Response : AxiosResponse<IHealthData[]>)=>{ 
+           let  healthdatas : IHealthData[] = Response.data
+
+           if(healthdatas != null){
+                let testnum : number = 0;
+                healthdatas.forEach(element => {
+                    testnum++
+                    console.log("here" + testnum)
+                    let marke11 = L.marker([element.longitude, element.latitude]).addTo(mymap) 
+                });
+            }
+        })              
+    } catch (AxiosError) {
+        console.log(AxiosError)
+    }
+}
+
+window.onload = () => {
+  let LoggedInUserID = localStorage.getItem("key")
+  let param = parseInt(LoggedInUserID)
+  loadUserData(param);
+};
 
   /* 
   https://www.latlong.net/
@@ -27,6 +75,8 @@ $(document).ready(function() {
   use that location to put a marker on your map as shown below
   
   */
+
+  
    L.marker([55.625004, 12.074238]).addTo(mymap)
      .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
  
@@ -39,7 +89,7 @@ $(document).ready(function() {
        .setContent("You clicked the map at " + e.latlng.toString())
        .openOn(mymap);
    }
- 
+  
    mymap.on('click', onMapClick);
   
    function onLocationFound(e:any) {
@@ -50,6 +100,7 @@ $(document).ready(function() {
 
 		L.circle(e.latlng, radius).addTo(mymap);
   }
+  
   
   mymap.on('locationfound', onLocationFound);
 
