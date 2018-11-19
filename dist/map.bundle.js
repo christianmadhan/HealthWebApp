@@ -26281,7 +26281,7 @@ function loadUserData(id) {
                 healthdatas.forEach(function (element) {
                     testnum_1++;
                     console.log("here" + testnum_1);
-                    var marke11 = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"]([element.longitude, element.latitude]).addTo(mymap);
+                    var marke11 = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"]([element.latitude, element.longitude]).addTo(mymap);
                 });
             }
         });
@@ -26299,10 +26299,8 @@ window.onload = function () {
 https://www.latlong.net/
 You can find lat and long on this website by typing in adresses.
 use that location to put a marker on your map as shown below
-
 */
-_node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"]([55.625004, 12.074238]).addTo(mymap)
-    .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+_node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"]([55.625004, 12.074238]).addTo(mymap).bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
 var popup = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["popup"]();
 function onMapClick(e) {
     popup
