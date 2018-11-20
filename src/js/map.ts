@@ -24,7 +24,7 @@ $(document).ready(function() {
 });
 
 
-var mymap = L.map(leafMap).setView([51.505, -0.09], 13);
+var mymap = L.map(leafMap).setView([51.505, -0.09],13);
     
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 	maxZoom: 18,
@@ -50,7 +50,7 @@ function loadUserData(id : number) : void {
             testnum++
             console.log("here" + testnum)
             let marke11 = L.marker([element.latitude, element.longitude]).addTo(mymap)
-            marke11.bindPopup("HealthDatas<br>HearthRate:" + element.heartRate + "<br>BloodPreasure:" + element.bloodPressure).openPopup(); 
+            marke11.bindPopup("HealthDatas<br>HearthRate:" + element.heartRate + "<br>BloodPreasure:" + element.bloodPressure ).openPopup(); 
             });
           }
     })              
