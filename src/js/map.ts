@@ -49,7 +49,8 @@ function loadUserData(id : number) : void {
             healthdatas.forEach(element => {
             testnum++
             console.log("here" + testnum)
-            let marke11 = L.marker([element.latitude, element.longitude]).addTo(mymap) 
+            let marke11 = L.marker([element.latitude, element.longitude]).addTo(mymap)
+            marke11.bindPopup("HealthDatas<br>HearthRate:" + element.heartRate + "<br>BloodPreasure:" + element.bloodPressure).openPopup(); 
             });
           }
     })              

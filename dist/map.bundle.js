@@ -26282,6 +26282,7 @@ function loadUserData(id) {
                     testnum_1++;
                     console.log("here" + testnum_1);
                     var marke11 = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"]([element.latitude, element.longitude]).addTo(mymap);
+                    marke11.bindPopup("HealthDatas<br>HearthRate:" + element.heartRate + "<br>BloodPreasure:" + element.bloodPressure).openPopup();
                 });
             }
         });
