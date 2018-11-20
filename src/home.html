@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
     <title>
         BerthaProject
@@ -13,10 +13,10 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <!-- Nucleo Icons -->
-    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
     <!-- CSS Files -->
-    <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
-    <link href="../assets/css/black-dashboard.min.css" rel="stylesheet" />
+    <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+    <link href="assets/css/black-dashboard.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -181,7 +181,23 @@
                 <!-- END OF WEATHER BLOCK -->
 
                 <br>
-                <h1>Welcome <span id="firstname" stlye=></span>!</h1>
+                <h1>Welcome <span id="firstname"></span>!</h1>
+
+                <p>Pollution Data</p>                   
+                <div class="card" style="width:40%;  display: inline-block;">
+                    <canvas id="pollution-chart"></canvas>
+                </div>
+                <div class="card" style="width:40%; display: inline-block;">
+                    <canvas id="pollution2-chart"></canvas>
+                </div>
+                <br>
+                <div class="card" style="width:40%;  display: inline-block;">
+                    <canvas id="pollution3-chart"></canvas>
+                </div>
+                <div class="card" style="width:40%; display: inline-block;">
+                    <canvas id="pollution4-chart"></canvas>
+                </div>
+                    
             </div>
 
 
@@ -209,7 +225,7 @@
     <!--  Notifications Plugin    -->
     <script src="assets/js/plugins/bootstrap-notify.js"></script>
     <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-    <!-- <script src="assets/js/black-dashboard.js"></script> -->
+     <script src="assets/js/black-dashboard.js"></script>
 </body>
 
 </html>
