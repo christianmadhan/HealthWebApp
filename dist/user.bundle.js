@@ -12385,7 +12385,9 @@ var profilePic = document.getElementById("ProfileAvatar");
 var profilePic1 = document.getElementById("ProfileAvatar1");
 var Quote = document.getElementById("QuoteOfTheDay");
 var profileName = document.getElementById("ProfileName");
-var user;
+var pictureurl = document.getElementById("pictureBox");
+var savebutton = document.getElementById("savebtn");
+savebutton.addEventListener("click", updateUserData);
 _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(document).ready(function () {
     var getStoredUserID = localStorage.getItem("key");
     var LoggedInUserID = parseInt(getStoredUserID);
@@ -12411,6 +12413,7 @@ function loadUserData() {
             usernameBox.value = user.userName;
             firstnameBox.value = user.firstName;
             lastNameBox.value = user.lastName;
+            pictureurl.value = user.pictureURL;
             passwordBox.value = user.password;
             genderBox.value = user.gender;
             birthdateBox.value = user.birthDate.toString();
@@ -12420,6 +12423,34 @@ function loadUserData() {
     catch (AxiosError) {
         console.log(AxiosError);
     }
+}
+function updateUserData() {
+    var passedAdminValue;
+    if (rightBox.value == "User") {
+        passedAdminValue = 0;
+    }
+    else if (rightBox.value == "Admin") {
+        passedAdminValue = 1;
+    }
+    /*let newdate: Date = birthdateBox.valueAsDate;*/
+    var updatedUser = {
+        "isAdmin": passedAdminValue,
+        "userName": usernameBox.value,
+        "password": passwordBox.value,
+        "firstName": firstnameBox.value,
+        "lastName": lastNameBox.value,
+        "gender": genderBox.value,
+        "birthDate": birthdateBox.value,
+        "pictureURL": pictureurl.value,
+        "email": emailBox.value
+    };
+    console.log(updatedUser);
+    var uri = "https://berthaprojectusersapi.azurewebsites.net/api/Users/" + loggedInUserId.toString();
+    _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default.a.put(uri, updatedUser)
+        .then(function (Response) {
+        var resp = Response.data;
+        console.log(resp);
+    });
 }
 function getQuote() {
     var url = "https://talaikis.com/api/quotes/random/";
