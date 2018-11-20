@@ -17,6 +17,7 @@ module.exports = {
     notifications: ['./src/notifications.html','./src/js/notifications.ts'],
     tables: ['./src/tables.html','./src/js/tables.ts'],
     user: ['./src/user.html','./src/js/user.ts'],
+    home: ['./src/home.html','./src/js/home.ts'],
   },
   module: {
     // rules webpack should follow when watching...
