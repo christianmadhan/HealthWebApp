@@ -4,9 +4,6 @@ import axios, {
 } from "../../node_modules/axios/index";
 import * as $  from "../../node_modules/jquery/dist/jquery";
 
-// Works when compiled.
-import {Chart}  from "../../node_modules/chart.js/dist/Chart.js"; 
-
 
 let loggedInUserId = parseInt(localStorage.getItem("key"));
 
@@ -44,3 +41,10 @@ $(document).ready(function() {
 }
 
 
+let profilePic: HTMLImageElement = <HTMLImageElement>document.getElementById("ProfileAvatar");
+
+$(document).ready(function() {
+    let getStoredUserID = localStorage.getItem("key");
+    let LoggedInUserID = parseInt(getStoredUserID);
+     profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
+});

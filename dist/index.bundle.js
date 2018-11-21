@@ -12535,7 +12535,7 @@ function Login() {
         if (result.status == 200) {
             UserID = result.data.id;
             localStorage.setItem("key", UserID.toString());
-            window.location.href = "dashboard.html";
+            window.location.href = "home.html";
         }
     }).catch(function (error) {
         DisplayWrongUsernameOrPassword();
@@ -12594,6 +12594,33 @@ function getJSONAsync() {
             }
         });
     });
+}
+// REGISTRATION FORM
+var nextbtn = document.getElementById("nextbutton");
+var regnamefield = document.getElementById("regname");
+var regpassfield = document.getElementById("regpass");
+var regemailfield = document.getElementById("regemail");
+nextbtn.addEventListener("click", submitform);
+function submitform() {
+    var newuser = {
+        "isAdmin": 0,
+        "userName": regnamefield.value,
+        "password": regpassfield.value,
+        "firstName": "",
+        "lastName": "",
+        "gender": "",
+        "birthDate": "1990.01.01",
+        "pictureURL": "",
+        "email": regemailfield.value
+    };
+    console.log(newuser);
+    var uri = "https://berthaprojectusersapi.azurewebsites.net/api/Users";
+    _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default.a.post(uri, newuser)
+        .then(function (Response) {
+        var resp = Response.data;
+        console.log(resp);
+    });
+    // CLOSE REGISTRATION WINDOW
 }
 
 

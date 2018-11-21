@@ -174,7 +174,7 @@ function Login(): void {
         if (result.status == 200) {
             UserID =  result.data.id;
             localStorage.setItem("key", UserID.toString());
-            window.location.href = "dashboard.html";
+            window.location.href = "home.html";
         }
     }).catch(error => {
         DisplayWrongUsernameOrPassword();
@@ -233,4 +233,39 @@ async function getJSONAsync() {
 
     }
 
+}
+
+
+// REGISTRATION FORM
+let nextbtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("nextbutton");
+let regnamefield: HTMLInputElement = <HTMLInputElement>document.getElementById("regname");
+let regpassfield: HTMLInputElement = <HTMLInputElement>document.getElementById("regpass");
+let regemailfield: HTMLInputElement = <HTMLInputElement>document.getElementById("regemail");
+
+nextbtn.addEventListener("click", submitform);
+
+function submitform(): void {
+    let newuser = {
+        "isAdmin": 0,
+        "userName": regnamefield.value,
+        "password": regpassfield.value,        
+        "firstName": "",
+        "lastName": "",
+        "gender": "",
+        "birthDate": "1990.01.01",
+        "pictureURL": "",
+        "email": regemailfield.value
+    }
+
+    console.log(newuser);
+
+    let uri: string = "https://berthaprojectusersapi.azurewebsites.net/api/Users";
+    axios.post(uri, newuser)
+
+        .then((Response: AxiosResponse) => {
+            let resp = Response.data
+            console.log(resp)
+        })
+
+        // CLOSE REGISTRATION WINDOW
 }

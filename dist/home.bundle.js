@@ -12405,6 +12405,12 @@ function loadUserData() {
         console.log(AxiosError);
     }
 }
+var profilePic = document.getElementById("ProfileAvatar");
+_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(document).ready(function () {
+    var getStoredUserID = localStorage.getItem("key");
+    var LoggedInUserID = parseInt(getStoredUserID);
+    profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
+});
 
 
 /***/ }),
