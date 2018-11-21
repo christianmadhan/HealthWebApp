@@ -28242,6 +28242,7 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(fu
     LoggedInUserID = parseInt(getStoredUserID);
     profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
 });
+//------------------------------------------------ Chart Data --------------------------------------------------------------
 // Show HeartRate Chart
 _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
     _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__("#HeartBtn").click(function () {
@@ -28331,160 +28332,289 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(fu
         });
     });
 });
-(function () {
-    var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
-    if (isWindows) {
-        // if we are on windows OS we activate the perfectScrollbar function
-        if (_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.main-panel').length != 0) {
-            var ps = new _node_modules_perfect_scrollbar_dist_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_2__('.main-panel', {
-                wheelSpeed: 2,
-                wheelPropagation: true,
-                minScrollbarLength: 20,
-                suppressScrollX: true
-            });
-        }
-        if (_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.sidebar .sidebar-wrapper').length != 0) {
-            var ps1 = new _node_modules_perfect_scrollbar_dist_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_2__('.sidebar .sidebar-wrapper');
-            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.table-responsive').each(function () {
-                var ps2 = new _node_modules_perfect_scrollbar_dist_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_2__(_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this)[0]);
-            });
-        }
-        $html.addClass('perfect-scrollbar-on');
-    }
-    else {
-        $html.addClass('perfect-scrollbar-off');
-    }
-})();
 _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
-    var scroll_start = 0;
-    var startchange = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.row');
-    var offset = startchange.offset();
-    var scrollElement = navigator.platform.indexOf('Win') > -1 ? _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(".ps") : _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(window);
-    scrollElement.scroll(function () {
-        scroll_start = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this).scrollTop();
-        if (scroll_start > 50) {
-            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(".navbar-minimize-fixed").css('opacity', '1');
-        }
-        else {
-            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(".navbar-minimize-fixed").css('opacity', '0');
-        }
-    });
-    _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).scroll(function () {
-        scroll_start = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this).scrollTop();
-        if (scroll_start > offset.top) {
-            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(".navbar-minimize-fixed").css('opacity', '1');
-        }
-        else {
-            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(".navbar-minimize-fixed").css('opacity', '0');
-        }
-    });
-    if (_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.full-screen-map').length == 0 && _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.bd-docs').length == 0) {
-        // On click navbar-collapse the menu will be white not transparent
-        _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.collapse').on('show.bs.collapse', function () {
-            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this).closest('.navbar').removeClass('navbar-transparent').addClass('bg-white');
-        }).on('hide.bs.collapse', function () {
-            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this).closest('.navbar').addClass('navbar-transparent').removeClass('bg-white');
+    var DustData = [];
+    var uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
+    _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_3___default.a.get(uri)
+        .then(function (response) {
+        // Works when compiled
+        response.data.forEach(function (element) {
+            DustData.push(element.dustPercentage);
+            //myBloodPressureData.push(parseInt(element.bloodPressure));
         });
-    }
-    blackDashboard.initMinimizeSidebar();
-    $navbar = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.navbar[color-on-scroll]');
-    /*
-    // If something with scrolling isn't working: oncomment this code to check if it helps.
-      let scroll_distance = $navbar.attr('color-on-scroll') || 500;
-  
-    // Check if we have the class "navbar-color-on-scroll" then add the function to remove the class "navbar-transparent" so it will transform to a plain color.
-    if ($('.navbar[color-on-scroll]').length != 0) {
-      blackDashboard.checkScrollForTransparentNavbar();
-      $(window).on('scroll', blackDashboard.checkScrollForTransparentNavbar)
-    }
-  
-    $('.form-control').on("focus", function() {
-      $(this).parent('.input-group').addClass("input-group-focus");
-    }).on("blur", function() {
-      $(this).parent(".input-group").removeClass("input-group-focus");
-    });
-  
-    // Activate bootstrapSwitch
-    $('.bootstrap-switch').each(function() {
-     let $this = $(this);
-     let data_on_label = $this.data('on-label') || '';
-     let data_off_label = $this.data('off-label') || '';
-  
-      $this.bootstrapSwitch({
-        onText: data_on_label,
-        offText: data_off_label
-      });
-    });
-    
-    
-      End of comment
-    */
-});
-_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).on('click', '.navbar-toggle', function () {
-    var $toggle = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this);
-    if (blackDashboard.misc.navbar_menu_visible == 1) {
-        $html.removeClass('nav-open');
-        blackDashboard.misc.navbar_menu_visible = 0;
-        setTimeout(function () {
-            $toggle.removeClass('toggled');
-            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.bodyClick').remove();
-        }, 550);
-    }
-    else {
-        setTimeout(function () {
-            $toggle.addClass('toggled');
-        }, 580);
-        var div = '<div class="bodyClick"></div>';
-        _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(div).appendTo('body').click(function () {
-            $html.removeClass('nav-open');
-            blackDashboard.misc.navbar_menu_visible = 0;
-            setTimeout(function () {
-                $toggle.removeClass('toggled');
-                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.bodyClick').remove();
-            }, 550);
-        });
-        $html.addClass('nav-open');
-        blackDashboard.misc.navbar_menu_visible = 1;
-    }
-});
-var blackDashboard = {
-    misc: {
-        navbar_menu_visible: 0
-    },
-    initMinimizeSidebar: function () {
-        if (_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.sidebar-mini').length != 0) {
-            sidebar_mini_active = true;
-        }
-        _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('#minimizeSidebar').click(function () {
-            var $btn = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this);
-            if (sidebar_mini_active == true) {
-                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('body').removeClass('sidebar-mini');
-                sidebar_mini_active = false;
+        var canvasChart = document.getElementById("pollution-chart");
+        new _node_modules_chart_js_dist_Chart_js__WEBPACK_IMPORTED_MODULE_1__["Chart"](canvasChart, {
+            type: 'line',
+            data: {
+                labels: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500],
+                datasets: [{
+                        data: DustData,
+                        label: "Dust",
+                        borderColor: "#3e95cd",
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Dust Data'
+                }
             }
-            else {
-                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('body').addClass('sidebar-mini');
-                sidebar_mini_active = true;
-            }
-            // we simulate the window Resize so the charts will get updated in realtime.
-            var simulateWindowResize = setInterval(function () {
-                window.dispatchEvent(new Event('resize'));
-            }, 180);
-            // we stop the simulation of Window Resize after the animations are completed
-            setTimeout(function () {
-                clearInterval(simulateWindowResize);
-            }, 1000);
         });
-    },
-};
-function hexToRGB(hex, alpha) {
-    var r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
-    if (alpha) {
-        return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
-    }
-    else {
-        return "rgb(" + r + ", " + g + ", " + b + ")";
-    }
-}
+    });
+    _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
+        var sulphurDioxidePercentageData = [];
+        var uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
+        _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_3___default.a.get(uri)
+            .then(function (response) {
+            // Works when compiled
+            response.data.forEach(function (element) {
+                sulphurDioxidePercentageData.push(element.sulphurDioxidePercentage);
+                //myBloodPressureData.push(parseInt(element.bloodPressure));
+            });
+            var canvasChart = document.getElementById("pollution2-chart");
+            new _node_modules_chart_js_dist_Chart_js__WEBPACK_IMPORTED_MODULE_1__["Chart"](canvasChart, {
+                type: 'line',
+                data: {
+                    labels: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500],
+                    datasets: [{
+                            data: sulphurDioxidePercentageData,
+                            label: "Sulphur Dioxide",
+                            borderColor: "#3e95cd",
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Sulphur Data'
+                    }
+                }
+            });
+        });
+        _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
+            var oxidizedNitrogenCompoundPercentageData = [];
+            var uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
+            _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_3___default.a.get(uri)
+                .then(function (response) {
+                // Works when compiled
+                response.data.forEach(function (element) {
+                    oxidizedNitrogenCompoundPercentageData.push(element.oxidizedNitrogenCompoundPercentage);
+                    //myBloodPressureData.push(parseInt(element.bloodPressure));
+                });
+                var canvasChart = document.getElementById("pollution3-chart");
+                new _node_modules_chart_js_dist_Chart_js__WEBPACK_IMPORTED_MODULE_1__["Chart"](canvasChart, {
+                    type: 'line',
+                    data: {
+                        labels: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500],
+                        datasets: [{
+                                data: oxidizedNitrogenCompoundPercentageData,
+                                label: "Oxidized Nitrogen Compound",
+                                borderColor: "#3e95cd",
+                                fill: true
+                            }
+                        ]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Oxidized Nitrogen Compound Data'
+                        }
+                    }
+                });
+            });
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
+                var fluorinePercentageData = [];
+                var uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
+                _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_3___default.a.get(uri)
+                    .then(function (response) {
+                    // Works when compiled
+                    response.data.forEach(function (element) {
+                        fluorinePercentageData.push(element.fluorinePercentage);
+                        //myBloodPressureData.push(parseInt(element.bloodPressure));
+                    });
+                    var canvasChart = document.getElementById("pollution4-chart");
+                    new _node_modules_chart_js_dist_Chart_js__WEBPACK_IMPORTED_MODULE_1__["Chart"](canvasChart, {
+                        type: 'line',
+                        data: {
+                            labels: [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
+                            datasets: [{
+                                    data: fluorinePercentageData,
+                                    label: "Fluorine",
+                                    borderColor: "#3e95cd",
+                                    fill: true
+                                }
+                            ]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'fluorine Data'
+                            }
+                        }
+                    });
+                });
+                //------------------------------------- End of Chart Data -----------------------------------------------
+                (function () {
+                    var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+                    if (isWindows) {
+                        // if we are on windows OS we activate the perfectScrollbar function
+                        if (_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.main-panel').length != 0) {
+                            var ps = new _node_modules_perfect_scrollbar_dist_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_2__('.main-panel', {
+                                wheelSpeed: 2,
+                                wheelPropagation: true,
+                                minScrollbarLength: 20,
+                                suppressScrollX: true
+                            });
+                        }
+                        if (_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.sidebar .sidebar-wrapper').length != 0) {
+                            var ps1 = new _node_modules_perfect_scrollbar_dist_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_2__('.sidebar .sidebar-wrapper');
+                            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.table-responsive').each(function () {
+                                var ps2 = new _node_modules_perfect_scrollbar_dist_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_2__(_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this)[0]);
+                            });
+                        }
+                        $html.addClass('perfect-scrollbar-on');
+                    }
+                    else {
+                        $html.addClass('perfect-scrollbar-off');
+                    }
+                })();
+                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
+                    var scroll_start = 0;
+                    var startchange = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.row');
+                    var offset = startchange.offset();
+                    var scrollElement = navigator.platform.indexOf('Win') > -1 ? _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(".ps") : _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(window);
+                    scrollElement.scroll(function () {
+                        scroll_start = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this).scrollTop();
+                        if (scroll_start > 50) {
+                            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(".navbar-minimize-fixed").css('opacity', '1');
+                        }
+                        else {
+                            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(".navbar-minimize-fixed").css('opacity', '0');
+                        }
+                    });
+                    _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).scroll(function () {
+                        scroll_start = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this).scrollTop();
+                        if (scroll_start > offset.top) {
+                            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(".navbar-minimize-fixed").css('opacity', '1');
+                        }
+                        else {
+                            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(".navbar-minimize-fixed").css('opacity', '0');
+                        }
+                    });
+                    if (_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.full-screen-map').length == 0 && _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.bd-docs').length == 0) {
+                        // On click navbar-collapse the menu will be white not transparent
+                        _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.collapse').on('show.bs.collapse', function () {
+                            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this).closest('.navbar').removeClass('navbar-transparent').addClass('bg-white');
+                        }).on('hide.bs.collapse', function () {
+                            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this).closest('.navbar').addClass('navbar-transparent').removeClass('bg-white');
+                        });
+                    }
+                    blackDashboard.initMinimizeSidebar();
+                    $navbar = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.navbar[color-on-scroll]');
+                    /*
+                    // If something with scrolling isn't working: oncomment this code to check if it helps.
+                      let scroll_distance = $navbar.attr('color-on-scroll') || 500;
+                  
+                    // Check if we have the class "navbar-color-on-scroll" then add the function to remove the class "navbar-transparent" so it will transform to a plain color.
+                    if ($('.navbar[color-on-scroll]').length != 0) {
+                      blackDashboard.checkScrollForTransparentNavbar();
+                      $(window).on('scroll', blackDashboard.checkScrollForTransparentNavbar)
+                    }
+                  
+                    $('.form-control').on("focus", function() {
+                      $(this).parent('.input-group').addClass("input-group-focus");
+                    }).on("blur", function() {
+                      $(this).parent(".input-group").removeClass("input-group-focus");
+                    });
+                  
+                    // Activate bootstrapSwitch
+                    $('.bootstrap-switch').each(function() {
+                     let $this = $(this);
+                     let data_on_label = $this.data('on-label') || '';
+                     let data_off_label = $this.data('off-label') || '';
+                  
+                      $this.bootstrapSwitch({
+                        onText: data_on_label,
+                        offText: data_off_label
+                      });
+                    });
+                    
+                    
+                      End of comment
+                    */
+                });
+                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).on('click', '.navbar-toggle', function () {
+                    var $toggle = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this);
+                    if (blackDashboard.misc.navbar_menu_visible == 1) {
+                        $html.removeClass('nav-open');
+                        blackDashboard.misc.navbar_menu_visible = 0;
+                        setTimeout(function () {
+                            $toggle.removeClass('toggled');
+                            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.bodyClick').remove();
+                        }, 550);
+                    }
+                    else {
+                        setTimeout(function () {
+                            $toggle.addClass('toggled');
+                        }, 580);
+                        var div = '<div class="bodyClick"></div>';
+                        _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(div).appendTo('body').click(function () {
+                            $html.removeClass('nav-open');
+                            blackDashboard.misc.navbar_menu_visible = 0;
+                            setTimeout(function () {
+                                $toggle.removeClass('toggled');
+                                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.bodyClick').remove();
+                            }, 550);
+                        });
+                        $html.addClass('nav-open');
+                        blackDashboard.misc.navbar_menu_visible = 1;
+                    }
+                });
+                var blackDashboard = {
+                    misc: {
+                        navbar_menu_visible: 0
+                    },
+                    initMinimizeSidebar: function () {
+                        if (_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('.sidebar-mini').length != 0) {
+                            sidebar_mini_active = true;
+                        }
+                        _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('#minimizeSidebar').click(function () {
+                            var $btn = _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(this);
+                            if (sidebar_mini_active == true) {
+                                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('body').removeClass('sidebar-mini');
+                                sidebar_mini_active = false;
+                            }
+                            else {
+                                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__('body').addClass('sidebar-mini');
+                                sidebar_mini_active = true;
+                            }
+                            // we simulate the window Resize so the charts will get updated in realtime.
+                            var simulateWindowResize = setInterval(function () {
+                                window.dispatchEvent(new Event('resize'));
+                            }, 180);
+                            // we stop the simulation of Window Resize after the animations are completed
+                            setTimeout(function () {
+                                clearInterval(simulateWindowResize);
+                            }, 1000);
+                        });
+                    },
+                };
+                function hexToRGB(hex, alpha) {
+                    var r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+                    if (alpha) {
+                        return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+                    }
+                    else {
+                        return "rgb(" + r + ", " + g + ", " + b + ")";
+                    }
+                }
+            });
+        });
+    });
+});
 
 
 /***/ }),
