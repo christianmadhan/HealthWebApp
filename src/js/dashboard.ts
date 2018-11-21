@@ -1,11 +1,25 @@
 import * as $  from "../../node_modules/jquery/dist/jquery";
 // Works when compiled.
-import {Chart}  from "../../node_modules/chart.js/dist/Chart.js"; 
+import { Chart }  from "../../node_modules/chart.js/dist/Chart.js"; 
 import * as PerfectScrollbar from "../../node_modules/perfect-scrollbar/dist/perfect-scrollbar";
 import axios, {
   AxiosResponse,
   AxiosError
 } from "../../node_modules/axios/index";
+
+let checkbox1: HTMLInputElement = <HTMLInputElement>document.getElementById("inlineCheckbox1");
+let checkbox2: HTMLInputElement = <HTMLInputElement>document.getElementById("inlineCheckbox2");
+let checkbox3: HTMLInputElement = <HTMLInputElement>document.getElementById("inlineCheckbox3");
+
+// Your HealthData Buttons
+let HeartBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("HeartBtn");
+let BloodPressureBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("BloodPressureBtn");
+
+// Pollutions Chart Canvas
+let DustCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("pollution-chart");
+let SulphurCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("pollution2-chart");
+let OxidizedCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("pollution3-chart");
+let FluorineCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("pollution4-chart");
 
 let profilePic: HTMLImageElement = <HTMLImageElement>document.getElementById("ProfileAvatar");
 
@@ -16,6 +30,24 @@ let $html = $('html');
 let $navbar = $('.navbar');
 
 let LoggedInUserID:any;
+
+  // Initialize Arrays for Pollution Data
+let DustData:any = [];
+let sulphurDioxidePercentageData:any = [];
+let oxidizedNitrogenCompoundPercentageData:any = [];
+let fluorinePercentageData:any = [];
+
+// Initialize Labels Data
+let DustLabel:any = [];
+let SulphurLabel:any = [];
+let OxidizedLabel:any = [];
+let fluorineLabel:any = [];
+
+// Arrays to Sort
+let NewDustData:any = [];
+let NewsulphurDioxidePercentageData:any = [];
+let NewoxidizedNitrogenCompoundPercentageData:any = [];
+let NewfluorinePercentageData:any = [];
 
 /* 
 
@@ -64,39 +96,201 @@ on comment if you need it.
 
 
 
-
 $(document).ready(function() {
   var getStoredUserID = localStorage.getItem("key");
    LoggedInUserID = parseInt(getStoredUserID);
    profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
+
+   checkbox1.addEventListener("change", function(){
+    if(this.checked) {
+      checkbox2.disabled = true;
+      checkbox3.disabled = true;
+ 
+  
+  } else {
+    
+    checkbox2.disabled = false;
+    checkbox3.disabled = false;
+  }
+   });
+
+  // Checkbox 2
+   checkbox2.addEventListener("change", function(){
+    if(this.checked) {
+      checkbox1.disabled = true;
+      checkbox3.disabled = true;
+  } else {
+    
+    checkbox1.disabled = false;
+    checkbox3.disabled = false;
+  }
+   });
+
+   // Checkbox 3
+  checkbox3.addEventListener("change", function(){
+    if(this.checked) {
+      checkbox2.disabled = true;
+      checkbox1.disabled = true;
+  } else {
+    
+    checkbox2.disabled = false;
+    checkbox1.disabled = false;
+  }
+   });
+
  });
+
 
 //------------------------------------------------ Chart Data --------------------------------------------------------------
 
-// Show HeartRate Chart
+// All Chart Data and functions put into one function
  $(document).ready(function() {
-    $("#HeartBtn").click(function(){
-      document.getElementById("line-chart").style.display = "block";
-      document.getElementById("myCardDiv").style.display = "block";
-      let myHeartRataData:any = [];
 
-      let uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + LoggedInUserID;
+  // Initialize Arrays for Chart Data
+  let myHeartRataData:any = [];
+  let myBloodPressureData:any = [];
+
+   // Heart rate button
+  HeartBtn.addEventListener("click", function(){
+    document.getElementById("line-chart").style.display = "block";
+    document.getElementById("myCardDiv").style.display = "block";
+
+    let uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + LoggedInUserID;
+    axios.get(uri)
+    .then(function(response) {
+      // Works when compiled
+      response.data.forEach((element:any) => {
+          myHeartRataData.push(element.heartRate);
+      });
+
+    var canvasChart = document.getElementById("line-chart");
+    new Chart(canvasChart, {
+      type: 'line',
+      data: {
+        labels: [10,20,30,40,50,60,70,80,90,100,200,300,400,500],
+        datasets: [{ 
+            data: myHeartRataData,
+            label: "HeartRate",
+            borderColor: "#3e95cd",
+            fill: true
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Your Health Data'
+        }
+      }
+    });
+
+
+    })
+    .catch(function (error){ // error in GET or
+       console.log(error);
+    }); 
+  });
+
+  // Blood pressure button
+  BloodPressureBtn.addEventListener("click", function(){
+    document.getElementById("line-chart").style.display = "block";
+    document.getElementById("myCardDiv").style.display = "block";
+
+    let uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + LoggedInUserID;
+    axios.get(uri)
+    .then(function(response) {
+      response.data.forEach((element:any) =>  {
+          //myHeartRataData.push(element.heartRate);
+          myBloodPressureData.push(parseInt(element.bloodPressure));
+      });
+
+    var canvasChart = document.getElementById("line-chart");
+    new Chart(canvasChart, {
+      type: 'line',
+      data: {
+        labels: [40,50,60,70,80,90,100],
+        datasets: [{ 
+            data: myBloodPressureData,
+            label: "BloodPressure",
+            borderColor: "#8e5ea2",
+            fill: true
+          }
+        ]
+      },
+      options: {
+          scales: {
+            yAxes: [{
+              scaleLabel: {
+                display:true,
+                labelString:'Systolic'
+              }
+            }],
+            xAxes: [{
+              scaleLabel: {
+                display:true,
+                labelString:'Diastolic'
+              }
+            }]
+          }
+      }
+    });
+
+
+    })
+    .catch(function (error){ // error in GET or
+       console.log(error);
+    });      
+
+  });
+  
+  // End of Buttons functions ----------------------------------------------
+  
+});
+
+
+   // Create Arrays for Pollutions datas
+
+$(document).ready(function(){
+
+    // Initialize Api url string. Axios Will make a get method to this string.
+    let uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
+
+    // Axios get method, which will put all the pollution data into the Arrays. 
       axios.get(uri)
       .then(function(response) {
         // Works when compiled
         response.data.forEach((element:any) => {
-            myHeartRataData.push(element.heartRate);
-            //myBloodPressureData.push(parseInt(element.bloodPressure));
-        });
+            DustData.push(parseInt(element.dustPercentage));
+            NewDustData.push(parseInt(element.dustPercentage));
+            DustLabel.push(parseInt(element.dustPercentage));
 
-      var canvasChart = document.getElementById("line-chart");
-      new Chart(canvasChart, {
+            sulphurDioxidePercentageData.push(element.sulphurDioxidePercentage);
+            NewsulphurDioxidePercentageData.push(element.sulphurDioxidePercentage);
+            SulphurLabel.push(parseInt(element.sulphurDioxidePercentage));
+
+            oxidizedNitrogenCompoundPercentageData.push(element.oxidizedNitrogenCompoundPercentage);
+            NewoxidizedNitrogenCompoundPercentageData.push(element.oxidizedNitrogenCompoundPercentage);
+            OxidizedLabel.push(parseInt(element.oxidizedNitrogenCompoundPercentage));
+
+            fluorinePercentageData.push(element.fluorinePercentage);
+            NewfluorinePercentageData.push(element.fluorinePercentage);
+            fluorineLabel.push(parseInt(element.fluorinePercentage));
+        })
+
+        DustLabel.sort(function(a:any,b:any){return a - b});
+        SulphurLabel.sort(function(a:any,b:any){return a - b});
+        OxidizedLabel.sort(function(a:any,b:any){return a - b});
+        fluorineLabel.sort(function(a:any,b:any){return a - b});
+
+
+   // ------------------ Pollution Charts ------------------------------------------------     
+      new Chart(DustCanvas, {
         type: 'line',
         data: {
-          labels: [10,20,30,40,50,60,70,80,90,100,200,300,400,500],
+          labels: DustLabel,
           datasets: [{ 
-              data: myHeartRataData,
-              label: "HeartRate",
+              data: DustData,
+              label: "Dust",
               borderColor: "#3e95cd",
               fill: true
             }
@@ -105,217 +299,77 @@ $(document).ready(function() {
         options: {
           title: {
             display: true,
-            text: 'Your Health Data'
+            text: 'Dust Data'
           }
         }
       });
 
 
-      })
-      .catch(function (error){ // error in GET or
-         console.log(error);
-      });      
-
-    }); 
-});
-
-
-
-// Show bloodpressure data
-$(document).ready(function() {
-    $("#BloodPressureBtn").click(function(){
-      document.getElementById("line-chart").style.display = "block";
-      document.getElementById("myCardDiv").style.display = "block";
-      let myBloodPressureData:any = [];
-
-      let uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + LoggedInUserID;
-      axios.get(uri)
-      .then(function(response) {
-        response.data.forEach((element:any) =>  {
-            //myHeartRataData.push(element.heartRate);
-            myBloodPressureData.push(parseInt(element.bloodPressure));
-        });
-
-      var canvasChart = document.getElementById("line-chart");
-      new Chart(canvasChart, {
+      new Chart(SulphurCanvas, {
         type: 'line',
         data: {
-          labels: [40,50,60,70,80,90,100],
+          labels: SulphurLabel,
           datasets: [{ 
-              data: myBloodPressureData,
-              label: "BloodPressure",
-              borderColor: "#8e5ea2",
+              data: sulphurDioxidePercentageData,
+              label: "Sulphur Dioxide",
+              borderColor: "#3e95cd",
               fill: true
             }
           ]
         },
         options: {
-            scales: {
-              yAxes: [{
-                scaleLabel: {
-                  display:true,
-                  labelString:'Systolic'
-                }
-              }],
-              xAxes: [{
-                scaleLabel: {
-                  display:true,
-                  labelString:'Diastolic'
-                }
-              }]
-            }
+          title: {
+            display: true,
+            text: 'Sulphur Data'
+          }
         }
       });
 
-
-      })
-      .catch(function (error){ // error in GET or
-         console.log(error);
-      });      
-
-    }); 
-});
-
-
-
-$(document).ready(function(){
-
-  let DustData:any = [];
-  let uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
-  axios.get(uri)
-  .then(function(response) {
-    // Works when compiled
-    response.data.forEach((element:any) => {
-        DustData.push(element.dustPercentage);
-        //myBloodPressureData.push(parseInt(element.bloodPressure));
-    });
-
-  var canvasChart = document.getElementById("pollution-chart");
-  new Chart(canvasChart, {
-    type: 'line',
-    data: {
-      labels: [10,20,30,40,50,60,70,80,90,100,200,300,400,500],
-      datasets: [{ 
-          data: DustData,
-          label: "Dust",
-          borderColor: "#3e95cd",
-          fill: true
+    
+      new Chart(OxidizedCanvas, {
+        type: 'line',
+        data: {
+          labels: OxidizedLabel,
+          datasets: [{ 
+              data: oxidizedNitrogenCompoundPercentageData,
+              label: "Oxidized Nitrogen Compound",
+              borderColor: "#3e95cd",
+              fill: true
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Oxidized Nitrogen Compound Data'
+          }
         }
-      ]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Dust Data'
-      }
-    }
-  });
-});
-
-
-
-$(document).ready(function(){
-
-  let sulphurDioxidePercentageData:any = [];
-  let uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
-  axios.get(uri)
-  .then(function(response) {
-    // Works when compiled
-    response.data.forEach((element:any) => {
-      sulphurDioxidePercentageData.push(element.sulphurDioxidePercentage);
-        //myBloodPressureData.push(parseInt(element.bloodPressure));
-    });
-
-  var canvasChart = document.getElementById("pollution2-chart");
-  new Chart(canvasChart, {
-    type: 'line',
-    data: {
-      labels: [10,20,30,40,50,60,70,80,90,100,200,300,400,500],
-      datasets: [{ 
-          data: sulphurDioxidePercentageData,
-          label: "Sulphur Dioxide",
-          borderColor: "#3e95cd",
-          fill: true
+      });
+    
+      new Chart(FluorineCanvas, {
+        type: 'line',
+        data: {
+          labels: fluorineLabel,
+          datasets: [{ 
+              data: fluorinePercentageData,
+              label: "Fluorine",
+              borderColor: "#3e95cd",
+              fill: true
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'fluorine Data'
+          }
         }
-      ]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Sulphur Data'
-      }
-    }
-  });
-});
-
-$(document).ready(function(){
-
-  let oxidizedNitrogenCompoundPercentageData:any = [];
-  let uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
-  axios.get(uri)
-  .then(function(response) {
-    // Works when compiled
-    response.data.forEach((element:any) => {
-      oxidizedNitrogenCompoundPercentageData.push(element.oxidizedNitrogenCompoundPercentage);
-        //myBloodPressureData.push(parseInt(element.bloodPressure));
-    });
-
-  var canvasChart = document.getElementById("pollution3-chart");
-  new Chart(canvasChart, {
-    type: 'line',
-    data: {
-      labels: [10,20,30,40,50,60,70,80,90,100,200,300,400,500],
-      datasets: [{ 
-          data: oxidizedNitrogenCompoundPercentageData,
-          label: "Oxidized Nitrogen Compound",
-          borderColor: "#3e95cd",
-          fill: true
-        }
-      ]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Oxidized Nitrogen Compound Data'
-      }
-    }
-  });
+      });
+ // ------------------ End Of Pollution Charts ------------------------------------------------     
 });
 
 
-$(document).ready(function(){
 
-  let fluorinePercentageData:any = [];
-  let uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
-  axios.get(uri)
-  .then(function(response) {
-    // Works when compiled
-    response.data.forEach((element:any) => {
-      fluorinePercentageData.push(element.fluorinePercentage);
-        //myBloodPressureData.push(parseInt(element.bloodPressure));
-    });
-
-  var canvasChart = document.getElementById("pollution4-chart");
-  new Chart(canvasChart, {
-    type: 'line',
-    data: {
-      labels: [10,15,20,25,30,35,40,45,50,55,60],
-      datasets: [{ 
-          data: fluorinePercentageData,
-          label: "Fluorine",
-          borderColor: "#3e95cd",
-          fill: true
-        }
-      ]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'fluorine Data'
-      }
-    }
-  });
-});
 
 
 
@@ -486,33 +540,8 @@ let blackDashboard = {
         clearInterval(simulateWindowResize);
       }, 1000);
     });
-  },
-
-  /* 
-    // Not sure if we need this code
-    showSidebarMessage: function(message: any) {
-    try {
-      $.notify({
-        icon: "tim-icons ui-1_bell-53",
-        message: message
-      }, {
-        type: 'info',
-        timer: 4000,
-        placement: {
-          from: 'top',
-          align: 'right'
-        }
-      });
-    } catch (e) {
-      console.log('Notify library is missing, please make sure you have the notifications library added.');
-    }
-
-  }
-  
-  
-  */
-
-};
+  }}
+},
 
 function hexToRGB(hex:any, alpha:any) {
   var r = parseInt(hex.slice(1, 3), 16),
@@ -524,5 +553,4 @@ function hexToRGB(hex:any, alpha:any) {
   } else {
     return "rgb(" + r + ", " + g + ", " + b + ")";
   }
-}
-
+});
