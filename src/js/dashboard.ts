@@ -7,9 +7,16 @@ import axios, {
   AxiosError
 } from "../../node_modules/axios/index";
 
+import * as Pikaday from '../../node_modules/pikaday/pikaday';
+
+
 let checkbox1: HTMLInputElement = <HTMLInputElement>document.getElementById("inlineCheckbox1");
 let checkbox2: HTMLInputElement = <HTMLInputElement>document.getElementById("inlineCheckbox2");
 let checkbox3: HTMLInputElement = <HTMLInputElement>document.getElementById("inlineCheckbox3");
+let checkbox4: HTMLInputElement = <HTMLInputElement>document.getElementById("SortDataAscendingCheckbox");
+let DateInputStart: HTMLInputElement = <HTMLInputElement>document.getElementById("datepicker1");
+let DateInputEnd: HTMLInputElement = <HTMLInputElement>document.getElementById("datepicker2");
+let mySort: HTMLDivElement = <HTMLDivElement>document.getElementById("SortNow");
 
 // Your HealthData Buttons
 let HeartBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("HeartBtn");
@@ -31,11 +38,15 @@ let $navbar = $('.navbar');
 
 let LoggedInUserID:any;
 
-  // Initialize Arrays for Pollution Data
+// StandardLabelData
+let StandardLabelData:any = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100];
+
+// Initialize Arrays for Pollution Data
 let DustData:any = [];
 let sulphurDioxidePercentageData:any = [];
 let oxidizedNitrogenCompoundPercentageData:any = [];
 let fluorinePercentageData:any = [];
+let mytube: IPollution[] = [];
 
 // Initialize Labels Data
 let DustLabel:any = [];
@@ -79,7 +90,18 @@ on comment if you need it.
 }
 
 */
-
+interface IPollution {
+  arbonMonoxidPercentage: number;
+  dustPercentage: number;
+  fluorinePercentage: number;
+  id: number;
+  latitude: number;
+  longitude: number;
+  oxidizedNitrogenCompoundPercentage: number;
+  ozonePercentage: number;
+  recordTime: Date;
+  sulphurDioxidePercentage: number;
+}
 
 
 /*!
@@ -97,46 +119,7 @@ on comment if you need it.
 
 
 $(document).ready(function() {
-  var getStoredUserID = localStorage.getItem("key");
-   LoggedInUserID = parseInt(getStoredUserID);
-   profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
 
-   checkbox1.addEventListener("change", function(){
-    if(this.checked) {
-      checkbox2.disabled = true;
-      checkbox3.disabled = true;
- 
-  
-  } else {
-    
-    checkbox2.disabled = false;
-    checkbox3.disabled = false;
-  }
-   });
-
-  // Checkbox 2
-   checkbox2.addEventListener("change", function(){
-    if(this.checked) {
-      checkbox1.disabled = true;
-      checkbox3.disabled = true;
-  } else {
-    
-    checkbox1.disabled = false;
-    checkbox3.disabled = false;
-  }
-   });
-
-   // Checkbox 3
-  checkbox3.addEventListener("change", function(){
-    if(this.checked) {
-      checkbox2.disabled = true;
-      checkbox1.disabled = true;
-  } else {
-    
-    checkbox2.disabled = false;
-    checkbox1.disabled = false;
-  }
-   });
 
  });
 
@@ -251,6 +234,18 @@ $(document).ready(function() {
    // Create Arrays for Pollutions datas
 
 $(document).ready(function(){
+   
+ var picker = new Pikaday({
+  field: DateInputStart,
+  minDate: new Date(Date.now())
+});
+picker.draw();
+
+var picker = new Pikaday({
+  field: DateInputEnd,
+  minDate: new Date(Date.now())
+});
+picker.draw();
 
     // Initialize Api url string. Axios Will make a get method to this string.
     let uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
@@ -263,6 +258,8 @@ $(document).ready(function(){
             DustData.push(parseInt(element.dustPercentage));
             NewDustData.push(parseInt(element.dustPercentage));
             DustLabel.push(parseInt(element.dustPercentage));
+           // mytube.push(parseInt(element.dustPercentage));
+            mytube.push(element);
 
             sulphurDioxidePercentageData.push(element.sulphurDioxidePercentage);
             NewsulphurDioxidePercentageData.push(element.sulphurDioxidePercentage);
@@ -276,18 +273,16 @@ $(document).ready(function(){
             NewfluorinePercentageData.push(element.fluorinePercentage);
             fluorineLabel.push(parseInt(element.fluorinePercentage));
         })
+        
 
-        DustLabel.sort(function(a:any,b:any){return a - b});
-        SulphurLabel.sort(function(a:any,b:any){return a - b});
-        OxidizedLabel.sort(function(a:any,b:any){return a - b});
-        fluorineLabel.sort(function(a:any,b:any){return a - b});
-
-
-   // ------------------ Pollution Charts ------------------------------------------------     
-      new Chart(DustCanvas, {
+   // ------------------ Pollution Charts ------------------------------------------------  
+   mytube.forEach(elm => {
+      console.log(elm.recordTime);
+   });   
+   let DustChart = new Chart(DustCanvas, {
         type: 'line',
         data: {
-          labels: DustLabel,
+          labels: StandardLabelData,
           datasets: [{ 
               data: DustData,
               label: "Dust",
@@ -305,10 +300,10 @@ $(document).ready(function(){
       });
 
 
-      new Chart(SulphurCanvas, {
+  let SulphurChart =  new Chart(SulphurCanvas, {
         type: 'line',
         data: {
-          labels: SulphurLabel,
+          labels: StandardLabelData,
           datasets: [{ 
               data: sulphurDioxidePercentageData,
               label: "Sulphur Dioxide",
@@ -326,10 +321,10 @@ $(document).ready(function(){
       });
 
     
-      new Chart(OxidizedCanvas, {
+   let OxidizedChart = new Chart(OxidizedCanvas, {
         type: 'line',
         data: {
-          labels: OxidizedLabel,
+          labels: StandardLabelData,
           datasets: [{ 
               data: oxidizedNitrogenCompoundPercentageData,
               label: "Oxidized Nitrogen Compound",
@@ -346,10 +341,10 @@ $(document).ready(function(){
         }
       });
     
-      new Chart(FluorineCanvas, {
+   let fluorineChart =  new Chart(FluorineCanvas, {
         type: 'line',
         data: {
-          labels: fluorineLabel,
+          labels: StandardLabelData,
           datasets: [{ 
               data: fluorinePercentageData,
               label: "Fluorine",
@@ -365,12 +360,124 @@ $(document).ready(function(){
           }
         }
       });
- // ------------------ End Of Pollution Charts ------------------------------------------------     
+
+   DateInputEnd.addEventListener("click", function() {
+      if(DateInputStart.value == ""){
+        DateInputEnd.disabled = true;
+        document.getElementById("DateMissing").style.display = "block";
+      }
+   })  
+ // ------------------ End Of Pollution Charts ------------------------------------------------  
+
+
+
+ 
+
+
+ var getStoredUserID = localStorage.getItem("key");
+ LoggedInUserID = parseInt(getStoredUserID);
+ profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
+
+ checkbox1.addEventListener("change", function(){
+  if(this.checked) {
+
+
+    //NewDustData.sort(function(a:any,b:any){return a - b});
+    //DustLabel.sort(function(a:any,b:any){return a - b});
+
+    //NewoxidizedNitrogenCompoundPercentageData.sort(function(a:any,b:any){return a - b});
+   // OxidizedLabel.sort(function(a:any,b:any){return a - b});
+    
+    //NewsulphurDioxidePercentageData.sort(function(a:any,b:any){return a - b});
+    //SulphurLabel.sort(function(a:any,b:any){return a - b});
+
+    //NewfluorinePercentageData.sort(function(a:any,b:any){return a - b});
+    //fluorineLabel.sort(function(a:any,b:any){return a - b});
+  //  DustData.sort(function(a:any,b:any){return a - b});
+  //  sulphurDioxidePercentageData.sort(function(a:any,b:any){return a - b});
+  //  oxidizedNitrogenCompoundPercentageData.sort(function(a:any,b:any){return a - b});
+  //  fluorinePercentageData.sort(function(a:any,b:any){return a - b});
+   addData(DustChart,DustLabel,NewDustData);
+   addData(OxidizedChart,OxidizedLabel,NewoxidizedNitrogenCompoundPercentageData);
+   addData(SulphurChart,SulphurLabel,NewsulphurDioxidePercentageData);
+   addData(fluorineChart,fluorineLabel,NewfluorinePercentageData);
+
+
+    checkbox2.disabled = true;
+    checkbox3.disabled = true;
+    mySort.style.display = 'block'; 
+
+
+} else {
+  addData(DustChart,StandardLabelData,DustData);
+  addData(OxidizedChart,StandardLabelData,oxidizedNitrogenCompoundPercentageData);
+  addData(SulphurChart,StandardLabelData,sulphurDioxidePercentageData);
+  addData(fluorineChart,StandardLabelData,fluorinePercentageData);
+
+  checkbox2.disabled = false;
+  checkbox3.disabled = false;
+  mySort.style.display = 'none'; 
+}
+ });
+
+// Checkbox 2
+ checkbox2.addEventListener("change", function(){
+  if(this.checked) {
+    checkbox1.disabled = true;
+    checkbox3.disabled = true;
+} else {
+  
+  checkbox1.disabled = false;
+  checkbox3.disabled = false;
+}
+ });
+
+ // Checkbox 3
+checkbox3.addEventListener("change", function(){
+  if(this.checked) {
+    checkbox2.disabled = true;
+    checkbox1.disabled = true;
+} else {
+  
+  checkbox2.disabled = false;
+  checkbox1.disabled = false;
+}
+ });
+
+ checkbox4.addEventListener("change", function(){
+  if(DustLabel[0] == 1){
+    checkbox4.checked = true;
+  } else if(this.checked) {
+    DustLabel.sort(function(a:any,b:any){return a - b});
+    addData(DustChart,DustLabel,NewDustData);
+
+    OxidizedLabel.sort(function(a:any,b:any){return a - b});
+    addData(OxidizedChart,OxidizedLabel,NewoxidizedNitrogenCompoundPercentageData);
+  
+    SulphurLabel.sort(function(a:any,b:any){return a - b});
+    addData(SulphurChart,SulphurLabel,NewsulphurDioxidePercentageData);
+ 
+    fluorineLabel.sort(function(a:any,b:any){return a - b});
+    addData(fluorineChart,fluorineLabel,NewfluorinePercentageData); 
+  }
+
+ });
+
+
+ 
+ //-----------------------End of Eventlistener --------------------------
+ function addData(Chart:any, label:any, data:any) {
+  Chart.data.labels = label;
+ //  Chart.data.labels.push(label);
+
+  Chart.data.datasets.forEach((dataset:any) => {
+      dataset.data.push(data);
+  });
+  Chart.update();
+}
+
 });
-
-
-
-
+ 
 
 
 //------------------------------------- End of Chart Data -----------------------------------------------
@@ -445,37 +552,6 @@ $(document).ready(function() {
   blackDashboard.initMinimizeSidebar();
 
   $navbar = $('.navbar[color-on-scroll]');
-  /* 
-  // If something with scrolling isn't working: oncomment this code to check if it helps.
-    let scroll_distance = $navbar.attr('color-on-scroll') || 500;
-
-  // Check if we have the class "navbar-color-on-scroll" then add the function to remove the class "navbar-transparent" so it will transform to a plain color.
-  if ($('.navbar[color-on-scroll]').length != 0) {
-    blackDashboard.checkScrollForTransparentNavbar();
-    $(window).on('scroll', blackDashboard.checkScrollForTransparentNavbar)
-  }
-
-  $('.form-control').on("focus", function() {
-    $(this).parent('.input-group').addClass("input-group-focus");
-  }).on("blur", function() {
-    $(this).parent(".input-group").removeClass("input-group-focus");
-  });
-
-  // Activate bootstrapSwitch
-  $('.bootstrap-switch').each(function() {
-   let $this = $(this);
-   let data_on_label = $this.data('on-label') || '';
-   let data_off_label = $this.data('off-label') || '';
-
-    $this.bootstrapSwitch({
-      onText: data_on_label,
-      offText: data_off_label
-    });
-  });
-  
-  
-    End of comment 
-  */
 });
 
 $(document).on('click', '.navbar-toggle', function() {
@@ -554,3 +630,7 @@ function hexToRGB(hex:any, alpha:any) {
     return "rgb(" + r + ", " + g + ", " + b + ")";
   }
 });
+
+
+
+
