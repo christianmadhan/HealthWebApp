@@ -1,5 +1,4 @@
 import * as $  from "../../node_modules/jquery/dist/jquery";
-// Works when compiled.
 import { Chart }  from "../../node_modules/chart.js/dist/Chart.js"; 
 import * as PerfectScrollbar from "../../node_modules/perfect-scrollbar/dist/perfect-scrollbar";
 import axios, {
@@ -7,9 +6,18 @@ import axios, {
   AxiosError
 } from "../../node_modules/axios/index";
 
+// Pikaday is a Datepicker.
 import * as Pikaday from '../../node_modules/pikaday/pikaday';
+import * as Moment from '../../node_modules/moment/moment';
+import { extendMoment } from '../../node_modules/moment-range/dist/moment-range';
 
 
+// Twix is used with Datepicker to calculate Days Between two Dates
+// Go to FilterByDateBtn Function to see how it's used.
+let twix = require('../../node_modules/twix/dist/twix');
+
+
+const moment = extendMoment(Moment);
 let checkbox1: HTMLInputElement = <HTMLInputElement>document.getElementById("inlineCheckbox1");
 let checkbox2: HTMLInputElement = <HTMLInputElement>document.getElementById("inlineCheckbox2");
 let checkbox3: HTMLInputElement = <HTMLInputElement>document.getElementById("inlineCheckbox3");
@@ -21,7 +29,7 @@ let mySort: HTMLDivElement = <HTMLDivElement>document.getElementById("SortNow");
 // Your HealthData Buttons
 let HeartBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("HeartBtn");
 let BloodPressureBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("BloodPressureBtn");
-
+let FilterByDateBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("FilterByDateBtn");
 // Pollutions Chart Canvas
 let DustCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("pollution-chart");
 let SulphurCanvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("pollution2-chart");
@@ -60,36 +68,7 @@ let NewsulphurDioxidePercentageData:any = [];
 let NewoxidizedNitrogenCompoundPercentageData:any = [];
 let NewfluorinePercentageData:any = [];
 
-/* 
 
-The logic of data tables in SQL
-on comment if you need it.
-
-  interface HealthData {   
-      bloodPressure: number;
-      heartRate: number;
-      height: number;
-      id: number;
-      isSmoker: number;
-      latitude: number;
-      longitude: number;
-      userID: number;
-      weight: number;  
-  }
-
-
-  interface IPerson {
-    id: number;
-    isAdmin: number;
-    username: string;
-    personPassword: string;
-    FirstName: string;
-    LastName: string;
-    Gender: string;
-    BirthDate: Date;
-}
-
-*/
 interface IPollution {
   arbonMonoxidPercentage: number;
   dustPercentage: number;
@@ -115,13 +94,6 @@ interface IPollution {
  =========================================================
 
  */
-
-
-
-$(document).ready(function() {
-
-
- });
 
 
 //------------------------------------------------ Chart Data --------------------------------------------------------------
@@ -234,18 +206,22 @@ $(document).ready(function() {
    // Create Arrays for Pollutions datas
 
 $(document).ready(function(){
-   
+
+  var getStoredUserID = localStorage.getItem("key");
+  LoggedInUserID = parseInt(getStoredUserID);
+  profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
+
+ //------------------- DatePicker Start ----------------------  
  var picker = new Pikaday({
   field: DateInputStart,
-  minDate: new Date(Date.now())
-});
-picker.draw();
+ });
+  picker.draw();
 
-var picker = new Pikaday({
+  var picker = new Pikaday({
   field: DateInputEnd,
-  minDate: new Date(Date.now())
-});
-picker.draw();
+  });
+  picker.draw();
+  //------------------- DatePicker End ----------------------
 
     // Initialize Api url string. Axios Will make a get method to this string.
     let uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
@@ -276,9 +252,7 @@ picker.draw();
         
 
    // ------------------ Pollution Charts ------------------------------------------------  
-   mytube.forEach(elm => {
-      console.log(elm.recordTime);
-   });   
+  
    let DustChart = new Chart(DustCanvas, {
         type: 'line',
         data: {
@@ -366,42 +340,80 @@ picker.draw();
         DateInputEnd.disabled = true;
         document.getElementById("DateMissing").style.display = "block";
       }
-   })  
+   })
+   
+   DateInputStart.addEventListener("click", function(){
+    document.getElementById("NoDateData").style.display = "none";
+    if(checkbox1.checked == true){
+        checkbox1.checked = false;
+        mySort.style.display = 'none'; 
+    }
+
+      if(DateInputEnd.disabled = true ){
+        DateInputEnd.disabled = false;
+        document.getElementById("DateMissing").style.display = "none";
+      }
+   })
+
+   FilterByDateBtn.addEventListener("click", function(){
+      if(DateInputEnd.value == ""){
+        document.getElementById("DateMissing").style.display = "block";
+      } else {
+        let startDate:string = DateInputStart.value;
+        let endDate:string = DateInputEnd.value;
+        var a = moment(startDate);
+        var b = moment(endDate);
+
+        let recordLabelData:any = [];
+        let DaysBetweenDates:any = [];
+        let rangeArray:any = [];
+        let DateInRangeDustData:any = [];
+        let DateInRangeSulphurData:any = [];
+        let DateInRangeOxidizedData:any = [];
+        let DateInRangeFluorineData:any = [];
+
+
+        var itr = moment.twix(new Date(startDate),new Date(endDate)).iterate("days");
+        while(itr.hasNext()){
+          DaysBetweenDates.push(itr.next().format("YYYY-M-D"))
+          }
+
+        // c.asDays()
+        mytube.forEach(elm => {
+        //  console.log(elm.recordTime)
+            DaysBetweenDates.forEach((element:any) => {
+                if(elm.recordTime.toString().split("T")[0] === element){
+                  rangeArray.push(element);
+                  DateInRangeDustData.push(elm.dustPercentage);
+                  DateInRangeSulphurData.push(elm.sulphurDioxidePercentage);
+                  DateInRangeOxidizedData.push(elm.oxidizedNitrogenCompoundPercentage)
+                  DateInRangeFluorineData.push(elm.fluorinePercentage);
+                }
+            });
+        })
+
+        rangeArray.sort();
+        if(rangeArray.length === 0 ){
+          document.getElementById("NoDateData").style.display = "block";
+        } else {
+          addData(DustChart, rangeArray, DateInRangeDustData);
+          addData(OxidizedChart,rangeArray,DateInRangeSulphurData);
+          addData(SulphurChart,rangeArray,DateInRangeOxidizedData);
+          addData(fluorineChart,rangeArray,DateInRangeFluorineData);
+        }
+      }
+   })
+  
  // ------------------ End Of Pollution Charts ------------------------------------------------  
 
-
-
- 
-
-
- var getStoredUserID = localStorage.getItem("key");
- LoggedInUserID = parseInt(getStoredUserID);
- profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
 
  checkbox1.addEventListener("change", function(){
   if(this.checked) {
 
-
-    //NewDustData.sort(function(a:any,b:any){return a - b});
-    //DustLabel.sort(function(a:any,b:any){return a - b});
-
-    //NewoxidizedNitrogenCompoundPercentageData.sort(function(a:any,b:any){return a - b});
-   // OxidizedLabel.sort(function(a:any,b:any){return a - b});
-    
-    //NewsulphurDioxidePercentageData.sort(function(a:any,b:any){return a - b});
-    //SulphurLabel.sort(function(a:any,b:any){return a - b});
-
-    //NewfluorinePercentageData.sort(function(a:any,b:any){return a - b});
-    //fluorineLabel.sort(function(a:any,b:any){return a - b});
-  //  DustData.sort(function(a:any,b:any){return a - b});
-  //  sulphurDioxidePercentageData.sort(function(a:any,b:any){return a - b});
-  //  oxidizedNitrogenCompoundPercentageData.sort(function(a:any,b:any){return a - b});
-  //  fluorinePercentageData.sort(function(a:any,b:any){return a - b});
    addData(DustChart,DustLabel,NewDustData);
    addData(OxidizedChart,OxidizedLabel,NewoxidizedNitrogenCompoundPercentageData);
    addData(SulphurChart,SulphurLabel,NewsulphurDioxidePercentageData);
    addData(fluorineChart,fluorineLabel,NewfluorinePercentageData);
-
 
     checkbox2.disabled = true;
     checkbox3.disabled = true;
@@ -421,8 +433,10 @@ picker.draw();
  });
 
 // Checkbox 2
+// Not Implemented Yet, Add function if you wanted to sort the chart Data
  checkbox2.addEventListener("change", function(){
   if(this.checked) {
+
     checkbox1.disabled = true;
     checkbox3.disabled = true;
 } else {
@@ -433,6 +447,7 @@ picker.draw();
  });
 
  // Checkbox 3
+ // Not Implemented Yet, Add function if you wanted to sort the chart Data
 checkbox3.addEventListener("change", function(){
   if(this.checked) {
     checkbox2.disabled = true;
@@ -504,8 +519,6 @@ checkbox3.addEventListener("change", function(){
         var ps2 = new PerfectScrollbar($(this)[0]);
       });
     }
-
-
 
     $html.addClass('perfect-scrollbar-on');
   } else {

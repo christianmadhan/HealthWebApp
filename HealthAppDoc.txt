@@ -1,0 +1,26 @@
+The logic of data tables in SQL
+on comment if you need it.
+
+  interface HealthData {   
+      bloodPressure: number;
+      heartRate: number;
+      height: number;
+      id: number;
+      isSmoker: number;
+      latitude: number;
+      longitude: number;
+      userID: number;
+      weight: number;  
+  }
+
+
+  interface IPerson {
+    id: number;
+    isAdmin: number;
+    username: string;
+    personPassword: string;
+    FirstName: string;
+    LastName: string;
+    Gender: string;
+    BirthDate: Date;
+}

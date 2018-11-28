@@ -26629,6 +26629,18 @@ return jQuery;
 
 /***/ }),
 
+/***/ "./node_modules/moment-range/dist/moment-range.js":
+/*!********************************************************!*\
+  !*** ./node_modules/moment-range/dist/moment-range.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(t,e){ true?module.exports=e(__webpack_require__(/*! moment */ "./node_modules/moment/moment.js")):undefined}(this,function(t){return function(t){function e(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return t[r].call(o.exports,o,o.exports,e),o.l=!0,o.exports}var n={};return e.m=t,e.c=n,e.i=function(t){return t},e.d=function(t,n,r){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:r})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="",e(e.s=3)}([function(t,e,n){"use strict";var r=n(5)();t.exports=function(t){return t!==r&&null!==t}},function(t,e,n){"use strict";t.exports=n(18)()?Symbol:n(20)},function(e,n){e.exports=t},function(t,e,n){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}function o(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}function i(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function u(t){return t.range=function(e,n){var r=this;return"string"==typeof e&&y.hasOwnProperty(e)?new h(t(r).startOf(e),t(r).endOf(e)):new h(e,n)},t.rangeFromInterval=function(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:1,r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:t();if(t.isMoment(r)||(r=t(r)),!r.isValid())throw new Error("Invalid date.");var o=r.clone().add(n,e),i=[];return i.push(t.min(r,o)),i.push(t.max(r,o)),new h(i)},t.rangeFromISOString=function(e){var n=a(e),r=t.parseZone(n[0]),o=t.parseZone(n[1]);return new h(r,o)},t.parseZoneRange=t.rangeFromISOString,t.fn.range=t.range,t.range.constructor=h,t.isRange=function(t){return t instanceof h},t.fn.within=function(t){return t.contains(this.toDate())},t}function a(t){return t.split("/")}Object.defineProperty(e,"__esModule",{value:!0}),e.DateRange=void 0;var s=function(){function t(t,e){var n=[],r=!0,o=!1,i=void 0;try{for(var u,a=t[Symbol.iterator]();!(r=(u=a.next()).done)&&(n.push(u.value),!e||n.length!==e);r=!0);}catch(t){o=!0,i=t}finally{try{!r&&a.return&&a.return()}finally{if(o)throw i}}return n}return function(e,n){if(Array.isArray(e))return e;if(Symbol.iterator in Object(e))return t(e,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),c="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},f=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();e.extendMoment=u;var l=n(2),v=r(l),d=n(1),p=r(d),y={year:!0,quarter:!0,month:!0,week:!0,day:!0,hour:!0,minute:!0,second:!0},h=e.DateRange=function(){function t(e,n){i(this,t);var r=e,o=n;if(1===arguments.length||void 0===n)if("object"===(void 0===e?"undefined":c(e))&&2===e.length){var u=s(e,2);r=u[0],o=u[1]}else if("string"==typeof e){var f=a(e),l=s(f,2);r=l[0],o=l[1]}this.start=r||0===r?(0,v.default)(r):(0,v.default)(-864e13),this.end=o||0===o?(0,v.default)(o):(0,v.default)(864e13)}return f(t,[{key:"adjacent",value:function(t){var e=this.start.isSame(t.end),n=this.end.isSame(t.start);return e&&t.start.valueOf()<=this.start.valueOf()||n&&t.end.valueOf()>=this.end.valueOf()}},{key:"add",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{adjacent:!1};return this.overlaps(t,e)?new this.constructor(v.default.min(this.start,t.start),v.default.max(this.end,t.end)):null}},{key:"by",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{excludeEnd:!1,step:1},n=this;return o({},p.default.iterator,function(){var r=e.step||1,o=Math.abs(n.start.diff(n.end,t))/r,i=e.excludeEnd||!1,u=0;return e.hasOwnProperty("exclusive")&&(i=e.exclusive),{next:function(){var e=n.start.clone().add(u*r,t),a=i?!(u<o):!(u<=o);return u++,{done:a,value:a?void 0:e}}}})}},{key:"byRange",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{excludeEnd:!1,step:1},n=this,r=e.step||1,i=this.valueOf()/t.valueOf()/r,u=Math.floor(i),a=e.excludeEnd||!1,s=0;return e.hasOwnProperty("exclusive")&&(a=e.exclusive),o({},p.default.iterator,function(){return u===1/0?{done:!0}:{next:function(){var e=(0,v.default)(n.start.valueOf()+t.valueOf()*s*r),o=u===i&&a?!(s<u):!(s<=u);return s++,{done:o,value:o?void 0:e}}}})}},{key:"center",value:function(){var t=this.start.valueOf()+this.diff()/2;return(0,v.default)(t)}},{key:"clone",value:function(){return new this.constructor(this.start.clone(),this.end.clone())}},{key:"contains",value:function(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{excludeStart:!1,excludeEnd:!1},r=this.start.valueOf(),o=this.end.valueOf(),i=e.valueOf(),u=e.valueOf(),a=n.excludeStart||!1,s=n.excludeEnd||!1;n.hasOwnProperty("exclusive")&&(a=s=n.exclusive),e instanceof t&&(i=e.start.valueOf(),u=e.end.valueOf());var c=r<i||r<=i&&!a,f=o>u||o>=u&&!s;return c&&f}},{key:"diff",value:function(t,e){return this.end.diff(this.start,t,e)}},{key:"duration",value:function(t,e){return this.diff(t,e)}},{key:"intersect",value:function(t){var e=this.start.valueOf(),n=this.end.valueOf(),r=t.start.valueOf(),o=t.end.valueOf(),i=e==n,u=r==o;if(i){var a=e;if(a==r||a==o)return null;if(a>r&&a<o)return this.clone()}else if(u){var s=r;if(s==e||s==n)return null;if(s>e&&s<n)return new this.constructor(s,s)}return e<=r&&r<n&&n<o?new this.constructor(r,n):r<e&&e<o&&o<=n?new this.constructor(e,o):r<e&&e<=n&&n<o?this.clone():e<=r&&r<=o&&o<=n?new this.constructor(r,o):null}},{key:"isEqual",value:function(t){return this.start.isSame(t.start)&&this.end.isSame(t.end)}},{key:"isSame",value:function(t){return this.isEqual(t)}},{key:"overlaps",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{adjacent:!1},n=null!==this.intersect(t);return e.adjacent&&!n?this.adjacent(t):n}},{key:"reverseBy",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{excludeStart:!1,step:1},n=this;return o({},p.default.iterator,function(){var r=e.step||1,o=Math.abs(n.start.diff(n.end,t))/r,i=e.excludeStart||!1,u=0;return e.hasOwnProperty("exclusive")&&(i=e.exclusive),{next:function(){var e=n.end.clone().subtract(u*r,t),a=i?!(u<o):!(u<=o);return u++,{done:a,value:a?void 0:e}}}})}},{key:"reverseByRange",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{excludeStart:!1,step:1},n=this,r=e.step||1,i=this.valueOf()/t.valueOf()/r,u=Math.floor(i),a=e.excludeStart||!1,s=0;return e.hasOwnProperty("exclusive")&&(a=e.exclusive),o({},p.default.iterator,function(){return u===1/0?{done:!0}:{next:function(){var e=(0,v.default)(n.end.valueOf()-t.valueOf()*s*r),o=u===i&&a?!(s<u):!(s<=u);return s++,{done:o,value:o?void 0:e}}}})}},{key:"snapTo",value:function(t){var e=this.clone();return e.start.isSame((0,v.default)(-864e13))||(e.start=e.start.startOf(t)),e.end.isSame((0,v.default)(864e13))||(e.end=e.end.endOf(t)),e}},{key:"subtract",value:function(t){var e=this.start.valueOf(),n=this.end.valueOf(),r=t.start.valueOf(),o=t.end.valueOf();return null===this.intersect(t)?[this]:r<=e&&e<n&&n<=o?[]:r<=e&&e<o&&o<n?[new this.constructor(o,n)]:e<r&&r<n&&n<=o?[new this.constructor(e,r)]:e<r&&r<o&&o<n?[new this.constructor(e,r),new this.constructor(o,n)]:e<r&&r<n&&o<n?[new this.constructor(e,r),new this.constructor(r,n)]:[]}},{key:"toDate",value:function(){return[this.start.toDate(),this.end.toDate()]}},{key:"toString",value:function(){return this.start.format()+"/"+this.end.format()}},{key:"valueOf",value:function(){return this.end.valueOf()-this.start.valueOf()}}]),t}()},function(t,e,n){"use strict";var r,o=n(6),i=n(13),u=n(9),a=n(15);r=t.exports=function(t,e){var n,r,u,s,c;return arguments.length<2||"string"!=typeof t?(s=e,e=t,t=null):s=arguments[2],null==t?(n=u=!0,r=!1):(n=a.call(t,"c"),r=a.call(t,"e"),u=a.call(t,"w")),c={value:e,configurable:n,enumerable:r,writable:u},s?o(i(s),c):c},r.gs=function(t,e,n){var r,s,c,f;return"string"!=typeof t?(c=n,n=e,e=t,t=null):c=arguments[3],null==e?e=void 0:u(e)?null==n?n=void 0:u(n)||(c=n,n=void 0):(c=e,e=n=void 0),null==t?(r=!0,s=!1):(r=a.call(t,"c"),s=a.call(t,"e")),f={get:e,set:n,configurable:r,enumerable:s},c?o(i(c),f):f}},function(t,e,n){"use strict";t.exports=function(){}},function(t,e,n){"use strict";t.exports=n(7)()?Object.assign:n(8)},function(t,e,n){"use strict";t.exports=function(){var t,e=Object.assign;return"function"==typeof e&&(t={foo:"raz"},e(t,{bar:"dwa"},{trzy:"trzy"}),t.foo+t.bar+t.trzy==="razdwatrzy")}},function(t,e,n){"use strict";var r=n(10),o=n(14),i=Math.max;t.exports=function(t,e){var n,u,a,s=i(arguments.length,2);for(t=Object(o(t)),a=function(r){try{t[r]=e[r]}catch(t){n||(n=t)}},u=1;u<s;++u)e=arguments[u],r(e).forEach(a);if(void 0!==n)throw n;return t}},function(t,e,n){"use strict";t.exports=function(t){return"function"==typeof t}},function(t,e,n){"use strict";t.exports=n(11)()?Object.keys:n(12)},function(t,e,n){"use strict";t.exports=function(){try{return Object.keys("primitive"),!0}catch(t){return!1}}},function(t,e,n){"use strict";var r=n(0),o=Object.keys;t.exports=function(t){return o(r(t)?Object(t):t)}},function(t,e,n){"use strict";var r=n(0),o=Array.prototype.forEach,i=Object.create,u=function(t,e){var n;for(n in t)e[n]=t[n]};t.exports=function(t){var e=i(null);return o.call(arguments,function(t){r(t)&&u(Object(t),e)}),e}},function(t,e,n){"use strict";var r=n(0);t.exports=function(t){if(!r(t))throw new TypeError("Cannot use null or undefined");return t}},function(t,e,n){"use strict";t.exports=n(16)()?String.prototype.contains:n(17)},function(t,e,n){"use strict";var r="razdwatrzy";t.exports=function(){return"function"==typeof r.contains&&(!0===r.contains("dwa")&&!1===r.contains("foo"))}},function(t,e,n){"use strict";var r=String.prototype.indexOf;t.exports=function(t){return r.call(this,t,arguments[1])>-1}},function(t,e,n){"use strict";var r={object:!0,symbol:!0};t.exports=function(){var t;if("function"!=typeof Symbol)return!1;t=Symbol("test symbol");try{String(t)}catch(t){return!1}return!!r[typeof Symbol.iterator]&&(!!r[typeof Symbol.toPrimitive]&&!!r[typeof Symbol.toStringTag])}},function(t,e,n){"use strict";t.exports=function(t){return!!t&&("symbol"==typeof t||!!t.constructor&&("Symbol"===t.constructor.name&&"Symbol"===t[t.constructor.toStringTag]))}},function(t,e,n){"use strict";var r,o,i,u,a=n(4),s=n(21),c=Object.create,f=Object.defineProperties,l=Object.defineProperty,v=Object.prototype,d=c(null);if("function"==typeof Symbol){r=Symbol;try{String(r()),u=!0}catch(t){}}var p=function(){var t=c(null);return function(e){for(var n,r,o=0;t[e+(o||"")];)++o;return e+=o||"",t[e]=!0,n="@@"+e,l(v,n,a.gs(null,function(t){r||(r=!0,l(this,n,a(t)),r=!1)})),n}}();i=function(t){if(this instanceof i)throw new TypeError("Symbol is not a constructor");return o(t)},t.exports=o=function t(e){var n;if(this instanceof t)throw new TypeError("Symbol is not a constructor");return u?r(e):(n=c(i.prototype),e=void 0===e?"":String(e),f(n,{__description__:a("",e),__name__:a("",p(e))}))},f(o,{for:a(function(t){return d[t]?d[t]:d[t]=o(String(t))}),keyFor:a(function(t){var e;s(t);for(e in d)if(d[e]===t)return e}),hasInstance:a("",r&&r.hasInstance||o("hasInstance")),isConcatSpreadable:a("",r&&r.isConcatSpreadable||o("isConcatSpreadable")),iterator:a("",r&&r.iterator||o("iterator")),match:a("",r&&r.match||o("match")),replace:a("",r&&r.replace||o("replace")),search:a("",r&&r.search||o("search")),species:a("",r&&r.species||o("species")),split:a("",r&&r.split||o("split")),toPrimitive:a("",r&&r.toPrimitive||o("toPrimitive")),toStringTag:a("",r&&r.toStringTag||o("toStringTag")),unscopables:a("",r&&r.unscopables||o("unscopables"))}),f(i.prototype,{constructor:a(o),toString:a("",function(){return this.__name__})}),f(o.prototype,{toString:a(function(){return"Symbol ("+s(this).__description__+")"}),valueOf:a(function(){return s(this)})}),l(o.prototype,o.toPrimitive,a("",function(){var t=s(this);return"symbol"==typeof t?t:t.toString()})),l(o.prototype,o.toStringTag,a("c","Symbol")),l(i.prototype,o.toStringTag,a("c",o.prototype[o.toStringTag])),l(i.prototype,o.toPrimitive,a("c",o.prototype[o.toPrimitive]))},function(t,e,n){"use strict";var r=n(19);t.exports=function(t){if(!r(t))throw new TypeError(t+" is not a symbol");return t}}])});
+//# sourceMappingURL=moment-range.js.map
+
+/***/ }),
+
 /***/ "./node_modules/moment/locale sync recursive ^\\.\\/.*$":
 /*!**************************************************!*\
   !*** ./node_modules/moment/locale sync ^\.\/.*$ ***!
@@ -46548,6 +46560,697 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/twix/dist/twix.js":
+/*!****************************************!*\
+  !*** ./node_modules/twix/dist/twix.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Generated by CoffeeScript 1.10.0
+(function() {
+  var hasModule, isArray, makeTwix,
+    slice = [].slice;
+
+  hasModule = ( true && module !== null) && (module.exports != null) && "function" === 'function';
+
+  isArray = function(input) {
+    return Object.prototype.toString.call(input) === '[object Array]';
+  };
+
+  makeTwix = function(moment) {
+    var Twix;
+    if (moment == null) {
+      throw new Error("Can't find moment");
+    }
+    Twix = (function() {
+      function Twix(start, end, parseFormat, options) {
+        var ref;
+        if (options == null) {
+          options = {};
+        }
+        if (typeof parseFormat !== 'string') {
+          options = parseFormat != null ? parseFormat : {};
+          parseFormat = null;
+        }
+        if (typeof options === 'boolean') {
+          options = {
+            allDay: options
+          };
+        }
+        this._oStart = moment(start, parseFormat, options.parseStrict);
+        this._oEnd = moment(end, parseFormat, options.parseStrict);
+        this.allDay = (ref = options.allDay) != null ? ref : false;
+        this._mutated();
+      }
+
+      Twix._extend = function() {
+        var attr, first, j, len, other, others;
+        first = arguments[0], others = 2 <= arguments.length ? slice.call(arguments, 1) : [];
+        for (j = 0, len = others.length; j < len; j++) {
+          other = others[j];
+          for (attr in other) {
+            if (typeof other[attr] !== 'undefined') {
+              first[attr] = other[attr];
+            }
+          }
+        }
+        return first;
+      };
+
+      Twix.prototype.start = function() {
+        return this._start.clone();
+      };
+
+      Twix.prototype.end = function() {
+        return this._end.clone();
+      };
+
+      Twix.prototype.isSame = function(period) {
+        return this._start.isSame(this._end, period);
+      };
+
+      Twix.prototype.length = function(period, floatingPoint) {
+        if (floatingPoint == null) {
+          floatingPoint = false;
+        }
+        return this._displayEnd.diff(this._start, period, floatingPoint);
+      };
+
+      Twix.prototype.count = function(period) {
+        var end, start;
+        start = this.start().startOf(period);
+        end = this.end().startOf(period);
+        return end.diff(start, period) + 1;
+      };
+
+      Twix.prototype.countInner = function(period) {
+        var end, ref, start;
+        ref = this._inner(period), start = ref[0], end = ref[1];
+        if (start >= end) {
+          return 0;
+        }
+        return end.diff(start, period);
+      };
+
+      Twix.prototype.iterate = function(intervalAmount, period, minHours) {
+        var end, hasNext, ref, start;
+        ref = this._prepIterateInputs(intervalAmount, period, minHours), intervalAmount = ref[0], period = ref[1], minHours = ref[2];
+        start = this.start().startOf(period);
+        end = this.end().startOf(period);
+        if (this.allDay) {
+          end = end.add(1, 'd');
+        }
+        hasNext = (function(_this) {
+          return function() {
+            return (!_this.allDay && start <= end && (!minHours || !start.isSame(end) || _this._end.hours() > minHours)) || (_this.allDay && start < end);
+          };
+        })(this);
+        return this._iterateHelper(period, start, hasNext, intervalAmount);
+      };
+
+      Twix.prototype.iterateInner = function(intervalAmount, period) {
+        var end, hasNext, ref, ref1, start;
+        ref = this._prepIterateInputs(intervalAmount, period), intervalAmount = ref[0], period = ref[1];
+        ref1 = this._inner(period, intervalAmount), start = ref1[0], end = ref1[1];
+        hasNext = function() {
+          return start < end;
+        };
+        return this._iterateHelper(period, start, hasNext, intervalAmount);
+      };
+
+      Twix.prototype.humanizeLength = function() {
+        if (this.allDay) {
+          if (this.isSame('d')) {
+            return 'all day';
+          } else {
+            return this._start.from(this.end().add(1, 'd'), true);
+          }
+        } else {
+          return this._start.from(this._end, true);
+        }
+      };
+
+      Twix.prototype.asDuration = function(units) {
+        var diff;
+        diff = this._end.diff(this._start);
+        return moment.duration(diff);
+      };
+
+      Twix.prototype.isPast = function() {
+        return this._lastMilli < moment();
+      };
+
+      Twix.prototype.isFuture = function() {
+        return this._start > moment();
+      };
+
+      Twix.prototype.isCurrent = function() {
+        return !this.isPast() && !this.isFuture();
+      };
+
+      Twix.prototype.contains = function(mom) {
+        if (!moment.isMoment(mom)) {
+          mom = moment(mom);
+        }
+        return this._start <= mom && this._lastMilli >= mom;
+      };
+
+      Twix.prototype.isEmpty = function() {
+        return this._start.isSame(this._displayEnd);
+      };
+
+      Twix.prototype.overlaps = function(other) {
+        return this._displayEnd.isAfter(other._start) && this._start.isBefore(other._displayEnd);
+      };
+
+      Twix.prototype.engulfs = function(other) {
+        return this._start <= other._start && this._displayEnd >= other._displayEnd;
+      };
+
+      Twix.prototype.union = function(other) {
+        var allDay, newEnd, newStart;
+        allDay = this.allDay && other.allDay;
+        newStart = this._start < other._start ? this._start : other._start;
+        newEnd = this._lastMilli > other._lastMilli ? (allDay ? this._end : this._displayEnd) : (allDay ? other._end : other._displayEnd);
+        return new Twix(newStart, newEnd, allDay);
+      };
+
+      Twix.prototype.intersection = function(other) {
+        var allDay, newEnd, newStart;
+        allDay = this.allDay && other.allDay;
+        newStart = this._start > other._start ? this._start : other._start;
+        newEnd = this._lastMilli < other._lastMilli ? (allDay ? this._end : this._displayEnd) : (allDay ? other._end : other._displayEnd);
+        return new Twix(newStart, newEnd, allDay);
+      };
+
+      Twix.prototype.xor = function() {
+        var allDay, arr, endTime, i, item, j, k, last, len, len1, o, open, other, others, ref, results, start, t;
+        others = 1 <= arguments.length ? slice.call(arguments, 0) : [];
+        open = 0;
+        start = null;
+        results = [];
+        allDay = ((function() {
+          var j, len, results1;
+          results1 = [];
+          for (j = 0, len = others.length; j < len; j++) {
+            o = others[j];
+            if (o.allDay) {
+              results1.push(o);
+            }
+          }
+          return results1;
+        })()).length === others.length;
+        arr = [];
+        ref = [this].concat(others);
+        for (i = j = 0, len = ref.length; j < len; i = ++j) {
+          item = ref[i];
+          arr.push({
+            time: item._start,
+            i: i,
+            type: 0
+          });
+          arr.push({
+            time: item._displayEnd,
+            i: i,
+            type: 1
+          });
+        }
+        arr = arr.sort(function(a, b) {
+          return a.time - b.time;
+        });
+        for (k = 0, len1 = arr.length; k < len1; k++) {
+          other = arr[k];
+          if (other.type === 1) {
+            open -= 1;
+          }
+          if (open === other.type) {
+            start = other.time;
+          }
+          if (open === (other.type + 1) % 2) {
+            if (start) {
+              last = results[results.length - 1];
+              if (last && last._end.isSame(start)) {
+                last._oEnd = other.time;
+                last._mutated();
+              } else {
+                endTime = allDay ? other.time.clone().subtract(1, 'd') : other.time;
+                t = new Twix(start, endTime, allDay);
+                if (!t.isEmpty()) {
+                  results.push(t);
+                }
+              }
+            }
+            start = null;
+          }
+          if (other.type === 0) {
+            open += 1;
+          }
+        }
+        return results;
+      };
+
+      Twix.prototype.difference = function() {
+        var j, len, others, ref, results1, t;
+        others = 1 <= arguments.length ? slice.call(arguments, 0) : [];
+        ref = this.xor.apply(this, others).map((function(_this) {
+          return function(i) {
+            return _this.intersection(i);
+          };
+        })(this));
+        results1 = [];
+        for (j = 0, len = ref.length; j < len; j++) {
+          t = ref[j];
+          if (!t.isEmpty() && t.isValid()) {
+            results1.push(t);
+          }
+        }
+        return results1;
+      };
+
+      Twix.prototype.split = function() {
+        var args, dur, end, final, i, mom, start, time, times, vals;
+        args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
+        end = start = this.start();
+        if (moment.isDuration(args[0])) {
+          dur = args[0];
+        } else if ((!moment.isMoment(args[0]) && !isArray(args[0]) && typeof args[0] === 'object') || (typeof args[0] === 'number' && typeof args[1] === 'string')) {
+          dur = moment.duration(args[0], args[1]);
+        } else if (isArray(args[0])) {
+          times = args[0];
+        } else {
+          times = args;
+        }
+        if (times) {
+          times = (function() {
+            var j, len, results1;
+            results1 = [];
+            for (j = 0, len = times.length; j < len; j++) {
+              time = times[j];
+              results1.push(moment(time));
+            }
+            return results1;
+          })();
+          times = ((function() {
+            var j, len, results1;
+            results1 = [];
+            for (j = 0, len = times.length; j < len; j++) {
+              mom = times[j];
+              if (mom.isValid() && mom >= start) {
+                results1.push(mom);
+              }
+            }
+            return results1;
+          })()).sort(function(a, b) {
+            return a.valueOf() - b.valueOf();
+          });
+        }
+        if ((dur && dur.asMilliseconds() === 0) || (times && times.length === 0)) {
+          return [this];
+        }
+        vals = [];
+        i = 0;
+        final = this._displayEnd;
+        while (start < final && ((times == null) || times[i])) {
+          end = dur ? start.clone().add(dur) : times[i].clone();
+          end = moment.min(final, end);
+          if (!start.isSame(end)) {
+            vals.push(moment.twix(start, end));
+          }
+          start = end;
+          i += 1;
+        }
+        if (!end.isSame(this._displayEnd) && times) {
+          vals.push(moment.twix(end, this._displayEnd));
+        }
+        return vals;
+      };
+
+      Twix.prototype.divide = function(parts) {
+        return this.split(this.length() / parts, 'ms').slice(0, +(parts - 1) + 1 || 9e9);
+      };
+
+      Twix.prototype.isValid = function() {
+        return this._start.isValid() && this._end.isValid() && this._start <= this._displayEnd;
+      };
+
+      Twix.prototype.equals = function(other) {
+        return (other instanceof Twix) && this.allDay === other.allDay && this._start.valueOf() === other._start.valueOf() && this._end.valueOf() === other._end.valueOf();
+      };
+
+      Twix.prototype.toString = function() {
+        return "{start: " + (this._start.format()) + ", end: " + (this._end.format()) + ", allDay: " + (this.allDay ? 'true' : 'false') + "}";
+      };
+
+      Twix.prototype.toArray = function(intervalAmount, period, minHours) {
+        var itr, range;
+        itr = this.iterate(intervalAmount, period, minHours);
+        range = [];
+        while (itr.hasNext()) {
+          range.push(itr.next());
+        }
+        return range;
+      };
+
+      Twix.prototype.simpleFormat = function(momentOpts, inopts) {
+        var options, s;
+        options = {
+          allDay: '(all day)',
+          template: Twix.formatTemplate
+        };
+        Twix._extend(options, inopts || {});
+        s = options.template(this._start.format(momentOpts), this._end.format(momentOpts));
+        if (this.allDay && options.allDay) {
+          s += " " + options.allDay;
+        }
+        return s;
+      };
+
+      Twix.prototype.format = function(inopts) {
+        var americanish, atomicMonthDate, common_bucket, end_bucket, fold, format, fs, global_first, goesIntoTheMorning, j, len, localFormat, momentHourFormat, needDate, needsMeridiem, options, process, start_bucket, together;
+        if (this.isEmpty()) {
+          return '';
+        }
+        momentHourFormat = this._start.localeData()._longDateFormat['LT'][0];
+        options = {
+          groupMeridiems: true,
+          spaceBeforeMeridiem: true,
+          showDayOfWeek: false,
+          hideTime: false,
+          hideYear: false,
+          implicitMinutes: true,
+          implicitDate: false,
+          implicitYear: true,
+          yearFormat: 'YYYY',
+          monthFormat: 'MMM',
+          weekdayFormat: 'ddd',
+          dayFormat: 'D',
+          meridiemFormat: 'A',
+          hourFormat: momentHourFormat,
+          minuteFormat: 'mm',
+          allDay: 'all day',
+          explicitAllDay: false,
+          lastNightEndsAt: 0,
+          template: Twix.formatTemplate
+        };
+        Twix._extend(options, inopts || {});
+        fs = [];
+        needsMeridiem = options.hourFormat && options.hourFormat[0] === 'h';
+        localFormat = this._start.localeData()._longDateFormat['L'];
+        americanish = localFormat.indexOf('M') < localFormat.indexOf('D');
+        goesIntoTheMorning = options.lastNightEndsAt > 0 && !this.allDay && this.end().startOf('d').valueOf() === this.start().add(1, 'd').startOf('d').valueOf() && this._start.hours() > 12 && this._end.hours() < options.lastNightEndsAt;
+        needDate = !options.hideDate && (!options.implicitDate || this.start().startOf('d').valueOf() !== moment().startOf('d').valueOf() || !(this.isSame('d') || goesIntoTheMorning));
+        atomicMonthDate = !(this.allDay || options.hideTime);
+        if (this.allDay && this.isSame('d') && (options.implicitDate || options.explicitAllDay)) {
+          fs.push({
+            name: 'all day simple',
+            fn: function() {
+              return options.allDay;
+            },
+            pre: ' ',
+            slot: 0
+          });
+        }
+        if (needDate && !options.hideYear && (!options.implicitYear || this._start.year() !== moment().year() || !this.isSame('y'))) {
+          fs.push({
+            name: 'year',
+            fn: function(date) {
+              return date.format(options.yearFormat);
+            },
+            pre: americanish ? ', ' : ' ',
+            slot: 4
+          });
+        }
+        if (atomicMonthDate && needDate) {
+          fs.push({
+            name: 'month-date',
+            fn: function(date) {
+              var format;
+              format = americanish ? options.monthFormat + " " + options.dayFormat : options.dayFormat + " " + options.monthFormat;
+              return date.format(format);
+            },
+            ignoreEnd: function() {
+              return goesIntoTheMorning;
+            },
+            pre: ' ',
+            slot: 2
+          });
+        }
+        if (!atomicMonthDate && needDate) {
+          fs.push({
+            name: 'month',
+            fn: function(date) {
+              return date.format(options.monthFormat);
+            },
+            pre: ' ',
+            slot: americanish ? 2 : 3
+          });
+        }
+        if (!atomicMonthDate && needDate) {
+          fs.push({
+            name: 'date',
+            fn: function(date) {
+              return date.format(options.dayFormat);
+            },
+            pre: ' ',
+            slot: americanish ? 3 : 2
+          });
+        }
+        if (needDate && options.showDayOfWeek) {
+          fs.push({
+            name: 'day of week',
+            fn: function(date) {
+              return date.format(options.weekdayFormat);
+            },
+            pre: ' ',
+            slot: 1
+          });
+        }
+        if (options.groupMeridiems && needsMeridiem && !this.allDay && !options.hideTime) {
+          fs.push({
+            name: 'meridiem',
+            fn: function(t) {
+              return t.format(options.meridiemFormat);
+            },
+            slot: 6,
+            pre: options.spaceBeforeMeridiem ? ' ' : ''
+          });
+        }
+        if (!this.allDay && !options.hideTime) {
+          fs.push({
+            name: 'time',
+            fn: function(date) {
+              var str;
+              str = date.minutes() === 0 && options.implicitMinutes && needsMeridiem ? date.format(options.hourFormat) : date.format(options.hourFormat + ":" + options.minuteFormat);
+              if (!options.groupMeridiems && needsMeridiem) {
+                if (options.spaceBeforeMeridiem) {
+                  str += ' ';
+                }
+                str += date.format(options.meridiemFormat);
+              }
+              return str;
+            },
+            slot: 5,
+            pre: ', '
+          });
+        }
+        start_bucket = [];
+        end_bucket = [];
+        common_bucket = [];
+        together = true;
+        process = (function(_this) {
+          return function(format) {
+            var end_str, start_group, start_str;
+            start_str = format.fn(_this._start);
+            end_str = format.ignoreEnd && format.ignoreEnd() ? start_str : format.fn(_this._end);
+            start_group = {
+              format: format,
+              value: function() {
+                return start_str;
+              }
+            };
+            if (end_str === start_str && together) {
+              return common_bucket.push(start_group);
+            } else {
+              if (together) {
+                together = false;
+                common_bucket.push({
+                  format: {
+                    slot: format.slot,
+                    pre: ''
+                  },
+                  value: function() {
+                    return options.template(fold(start_bucket), fold(end_bucket, true).trim());
+                  }
+                });
+              }
+              start_bucket.push(start_group);
+              return end_bucket.push({
+                format: format,
+                value: function() {
+                  return end_str;
+                }
+              });
+            }
+          };
+        })(this);
+        for (j = 0, len = fs.length; j < len; j++) {
+          format = fs[j];
+          process(format);
+        }
+        global_first = true;
+        fold = function(array, skip_pre) {
+          var k, len1, local_first, ref, section, str;
+          local_first = true;
+          str = '';
+          ref = array.sort(function(a, b) {
+            return a.format.slot - b.format.slot;
+          });
+          for (k = 0, len1 = ref.length; k < len1; k++) {
+            section = ref[k];
+            if (!global_first) {
+              if (local_first && skip_pre) {
+                str += ' ';
+              } else {
+                str += section.format.pre;
+              }
+            }
+            str += section.value();
+            global_first = false;
+            local_first = false;
+          }
+          return str;
+        };
+        return fold(common_bucket);
+      };
+
+      Twix.prototype._iterateHelper = function(period, iter, hasNext, intervalAmount) {
+        return {
+          next: function() {
+            var val;
+            if (!hasNext()) {
+              return null;
+            } else {
+              val = iter.clone();
+              iter.add(intervalAmount, period);
+              return val;
+            }
+          },
+          hasNext: hasNext
+        };
+      };
+
+      Twix.prototype._prepIterateInputs = function() {
+        var inputs, intervalAmount, minHours, period, ref, ref1;
+        inputs = 1 <= arguments.length ? slice.call(arguments, 0) : [];
+        if (typeof inputs[0] === 'number') {
+          return inputs;
+        }
+        if (typeof inputs[0] === 'string') {
+          period = inputs.shift();
+          intervalAmount = (ref = inputs.pop()) != null ? ref : 1;
+          if (inputs.length) {
+            minHours = (ref1 = inputs[0]) != null ? ref1 : false;
+          }
+        }
+        if (moment.isDuration(inputs[0])) {
+          period = 'ms';
+          intervalAmount = inputs[0].as(period);
+        }
+        return [intervalAmount, period, minHours];
+      };
+
+      Twix.prototype._inner = function(period, intervalAmount) {
+        var durationCount, durationPeriod, end, modulus, start;
+        if (period == null) {
+          period = 'ms';
+        }
+        if (intervalAmount == null) {
+          intervalAmount = 1;
+        }
+        start = this.start();
+        end = this._displayEnd.clone();
+        if (start > start.clone().startOf(period)) {
+          start.startOf(period).add(intervalAmount, period);
+        }
+        if (end < end.clone().endOf(period)) {
+          end.startOf(period);
+        }
+        durationPeriod = start.twix(end).asDuration(period);
+        durationCount = durationPeriod.get(period);
+        modulus = durationCount % intervalAmount;
+        end.subtract(modulus, period);
+        return [start, end];
+      };
+
+      Twix.prototype._mutated = function() {
+        this._start = this.allDay ? this._oStart.clone().startOf('d') : this._oStart;
+        this._lastMilli = this.allDay ? this._oEnd.clone().endOf('d') : this._oEnd;
+        this._end = this.allDay ? this._oEnd.clone().startOf('d') : this._oEnd;
+        return this._displayEnd = this.allDay ? this._end.clone().add(1, 'd') : this._end;
+      };
+
+      return Twix;
+
+    })();
+    Twix._extend(moment.locale(), {
+      _twix: Twix.defaults
+    });
+    Twix.formatTemplate = function(leftSide, rightSide) {
+      return leftSide + " - " + rightSide;
+    };
+    moment.twix = function() {
+      return (function(func, args, ctor) {
+        ctor.prototype = func.prototype;
+        var child = new ctor, result = func.apply(child, args);
+        return Object(result) === result ? result : child;
+      })(Twix, arguments, function(){});
+    };
+    moment.fn.twix = function() {
+      return (function(func, args, ctor) {
+        ctor.prototype = func.prototype;
+        var child = new ctor, result = func.apply(child, args);
+        return Object(result) === result ? result : child;
+      })(Twix, [this].concat(slice.call(arguments)), function(){});
+    };
+    moment.fn.forDuration = function(duration, allDay) {
+      return new Twix(this, this.clone().add(duration), allDay);
+    };
+    if (moment.duration.fn) {
+      moment.duration.fn.afterMoment = function(startingTime, allDay) {
+        return new Twix(startingTime, moment(startingTime).clone().add(this), allDay);
+      };
+      moment.duration.fn.beforeMoment = function(startingTime, allDay) {
+        return new Twix(moment(startingTime).clone().subtract(this), startingTime, allDay);
+      };
+    }
+    moment.twixClass = Twix;
+    return Twix;
+  };
+
+  if (hasModule) {
+    return module.exports = makeTwix(__webpack_require__(/*! moment */ "./node_modules/moment/moment.js"));
+  }
+
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! moment */ "./node_modules/moment/moment.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function(moment) {
+      return makeTwix(moment);
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  }
+
+  if (this.moment) {
+    this.Twix = makeTwix(this.moment);
+  } else if (typeof moment !== "undefined" && moment !== null) {
+    this.Twix = makeTwix(moment);
+  }
+
+}).call(this);
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/module.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
@@ -46611,12 +47314,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_axios_index__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _node_modules_pikaday_pikaday__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../node_modules/pikaday/pikaday */ "./node_modules/pikaday/pikaday.js");
 /* harmony import */ var _node_modules_pikaday_pikaday__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_pikaday_pikaday__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_moment_moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../node_modules/moment/moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var _node_modules_moment_moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_moment_moment__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_moment_range_dist_moment_range__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../node_modules/moment-range/dist/moment-range */ "./node_modules/moment-range/dist/moment-range.js");
+/* harmony import */ var _node_modules_moment_range_dist_moment_range__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_node_modules_moment_range_dist_moment_range__WEBPACK_IMPORTED_MODULE_6__);
 
-// Works when compiled.
 
 
 
+// Pikaday is a Datepicker.
 
+
+
+// Twix is used with Datepicker to calculate Days Between two Dates
+// Go to FilterByDateBtn Function to see how it's used.
+var twix = __webpack_require__(/*! ../../node_modules/twix/dist/twix */ "./node_modules/twix/dist/twix.js");
+var moment = Object(_node_modules_moment_range_dist_moment_range__WEBPACK_IMPORTED_MODULE_6__["extendMoment"])(_node_modules_moment_moment__WEBPACK_IMPORTED_MODULE_5__);
 var checkbox1 = document.getElementById("inlineCheckbox1");
 var checkbox2 = document.getElementById("inlineCheckbox2");
 var checkbox3 = document.getElementById("inlineCheckbox3");
@@ -46627,6 +47340,7 @@ var mySort = document.getElementById("SortNow");
 // Your HealthData Buttons
 var HeartBtn = document.getElementById("HeartBtn");
 var BloodPressureBtn = document.getElementById("BloodPressureBtn");
+var FilterByDateBtn = document.getElementById("FilterByDateBtn");
 // Pollutions Chart Canvas
 var DustCanvas = document.getElementById("pollution-chart");
 var SulphurCanvas = document.getElementById("pollution2-chart");
@@ -46666,8 +47380,6 @@ var NewfluorinePercentageData = [];
  =========================================================
 
  */
-_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
-});
 //------------------------------------------------ Chart Data --------------------------------------------------------------
 // All Chart Data and functions put into one function
 _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
@@ -46760,16 +47472,19 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(fu
 });
 // Create Arrays for Pollutions datas
 _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
+    var getStoredUserID = localStorage.getItem("key");
+    LoggedInUserID = parseInt(getStoredUserID);
+    profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
+    //------------------- DatePicker Start ----------------------  
     var picker = new _node_modules_pikaday_pikaday__WEBPACK_IMPORTED_MODULE_4__({
         field: DateInputStart,
-        minDate: new Date(Date.now())
     });
     picker.draw();
     var picker = new _node_modules_pikaday_pikaday__WEBPACK_IMPORTED_MODULE_4__({
         field: DateInputEnd,
-        minDate: new Date(Date.now())
     });
     picker.draw();
+    //------------------- DatePicker End ----------------------
     // Initialize Api url string. Axios Will make a get method to this string.
     var uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
     // Axios get method, which will put all the pollution data into the Arrays. 
@@ -46793,9 +47508,6 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(fu
             fluorineLabel.push(parseInt(element.fluorinePercentage));
         });
         // ------------------ Pollution Charts ------------------------------------------------  
-        mytube.forEach(function (elm) {
-            console.log(elm.recordTime);
-        });
         var DustChart = new _node_modules_chart_js_dist_Chart_js__WEBPACK_IMPORTED_MODULE_1__["Chart"](DustCanvas, {
             type: 'line',
             data: {
@@ -46878,24 +47590,65 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(fu
                 document.getElementById("DateMissing").style.display = "block";
             }
         });
+        DateInputStart.addEventListener("click", function () {
+            document.getElementById("NoDateData").style.display = "none";
+            if (checkbox1.checked == true) {
+                checkbox1.checked = false;
+                mySort.style.display = 'none';
+            }
+            if (DateInputEnd.disabled = true) {
+                DateInputEnd.disabled = false;
+                document.getElementById("DateMissing").style.display = "none";
+            }
+        });
+        FilterByDateBtn.addEventListener("click", function () {
+            if (DateInputEnd.value == "") {
+                document.getElementById("DateMissing").style.display = "block";
+            }
+            else {
+                var startDate = DateInputStart.value;
+                var endDate = DateInputEnd.value;
+                var a = moment(startDate);
+                var b = moment(endDate);
+                var recordLabelData = [];
+                var DaysBetweenDates_1 = [];
+                var rangeArray_1 = [];
+                var DateInRangeDustData_1 = [];
+                var DateInRangeSulphurData_1 = [];
+                var DateInRangeOxidizedData_1 = [];
+                var DateInRangeFluorineData_1 = [];
+                var itr = moment.twix(new Date(startDate), new Date(endDate)).iterate("days");
+                while (itr.hasNext()) {
+                    DaysBetweenDates_1.push(itr.next().format("YYYY-M-D"));
+                }
+                // c.asDays()
+                mytube.forEach(function (elm) {
+                    //  console.log(elm.recordTime)
+                    DaysBetweenDates_1.forEach(function (element) {
+                        if (elm.recordTime.toString().split("T")[0] === element) {
+                            rangeArray_1.push(element);
+                            DateInRangeDustData_1.push(elm.dustPercentage);
+                            DateInRangeSulphurData_1.push(elm.sulphurDioxidePercentage);
+                            DateInRangeOxidizedData_1.push(elm.oxidizedNitrogenCompoundPercentage);
+                            DateInRangeFluorineData_1.push(elm.fluorinePercentage);
+                        }
+                    });
+                });
+                rangeArray_1.sort();
+                if (rangeArray_1.length === 0) {
+                    document.getElementById("NoDateData").style.display = "block";
+                }
+                else {
+                    addData(DustChart, rangeArray_1, DateInRangeDustData_1);
+                    addData(OxidizedChart, rangeArray_1, DateInRangeSulphurData_1);
+                    addData(SulphurChart, rangeArray_1, DateInRangeOxidizedData_1);
+                    addData(fluorineChart, rangeArray_1, DateInRangeFluorineData_1);
+                }
+            }
+        });
         // ------------------ End Of Pollution Charts ------------------------------------------------  
-        var getStoredUserID = localStorage.getItem("key");
-        LoggedInUserID = parseInt(getStoredUserID);
-        profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
         checkbox1.addEventListener("change", function () {
             if (this.checked) {
-                //NewDustData.sort(function(a:any,b:any){return a - b});
-                //DustLabel.sort(function(a:any,b:any){return a - b});
-                //NewoxidizedNitrogenCompoundPercentageData.sort(function(a:any,b:any){return a - b});
-                // OxidizedLabel.sort(function(a:any,b:any){return a - b});
-                //NewsulphurDioxidePercentageData.sort(function(a:any,b:any){return a - b});
-                //SulphurLabel.sort(function(a:any,b:any){return a - b});
-                //NewfluorinePercentageData.sort(function(a:any,b:any){return a - b});
-                //fluorineLabel.sort(function(a:any,b:any){return a - b});
-                //  DustData.sort(function(a:any,b:any){return a - b});
-                //  sulphurDioxidePercentageData.sort(function(a:any,b:any){return a - b});
-                //  oxidizedNitrogenCompoundPercentageData.sort(function(a:any,b:any){return a - b});
-                //  fluorinePercentageData.sort(function(a:any,b:any){return a - b});
                 addData(DustChart, DustLabel, NewDustData);
                 addData(OxidizedChart, OxidizedLabel, NewoxidizedNitrogenCompoundPercentageData);
                 addData(SulphurChart, SulphurLabel, NewsulphurDioxidePercentageData);
@@ -46915,6 +47668,7 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(fu
             }
         });
         // Checkbox 2
+        // Not Implemented Yet, Add function if you wanted to sort the chart Data
         checkbox2.addEventListener("change", function () {
             if (this.checked) {
                 checkbox1.disabled = true;
@@ -46926,6 +47680,7 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(fu
             }
         });
         // Checkbox 3
+        // Not Implemented Yet, Add function if you wanted to sort the chart Data
         checkbox3.addEventListener("change", function () {
             if (this.checked) {
                 checkbox2.disabled = true;
