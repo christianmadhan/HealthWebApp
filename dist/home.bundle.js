@@ -12381,13 +12381,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/jquery/dist/jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module '../../node_modules/rss-parser/dist/rss-parser'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 
 
-
+var loggedInUserId = parseInt(localStorage.getItem("key"));
 var firstname = document.getElementById("firstname");
 var user;
-var loggedInUserId = parseInt(localStorage.getItem("key"));
 _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(document).ready(function () {
     var getStoredUserID = localStorage.getItem("key");
     var loggedInUserId = parseInt(getStoredUserID);
@@ -12413,7 +12411,7 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(document).ready(fu
     var LoggedInUserID = parseInt(getStoredUserID);
     profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
     getBMIData();
-    parseRSS();
+    getRSS();
 });
 var localuserid = parseInt(localStorage.getItem("key"));
 function getBMIData() {
@@ -12460,19 +12458,6 @@ function getRSS() {
     req.send(null);
     if (req.status == 200) {
         feed.innerHTML = req.toString();
-    }
-}
-var parser = new !(function webpackMissingModule() { var e = new Error("Cannot find module '../../node_modules/rss-parser/dist/rss-parser'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())();
-function parseRSS() {
-    try {
-        var feed = parser.parseURL('https://www.sciencedaily.com/rss/top/environment.xml');
-        console.log(feed.title);
-        feed.items.forEach(function (item) {
-            console.log(item.title + ':' + item.link);
-        });
-    }
-    catch (_a) {
-        console.log(Error);
     }
 }
 

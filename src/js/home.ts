@@ -6,12 +6,11 @@ import * as $  from "../../node_modules/jquery/dist/jquery";
 import * as rssparser from "../../node_modules/rss-parser/dist/rss-parser";
 
 
+let loggedInUserId = parseInt(localStorage.getItem("key"));
 
 let firstname : HTMLSpanElement = <HTMLSpanElement> document.getElementById("firstname");
 
 let user : IUser
-
-let loggedInUserId = parseInt(localStorage.getItem("key"));
 
 interface IUser {
     firstName: string;
@@ -49,11 +48,11 @@ let profilePic: HTMLImageElement = <HTMLImageElement>document.getElementById("Pr
 $(document).ready(function() {
     let getStoredUserID = localStorage.getItem("key");
     let LoggedInUserID = parseInt(getStoredUserID);
-    profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
+     profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
 
     getBMIData();
 
-    parseRSS();
+    getRSS();
 });
 
 
@@ -116,22 +115,4 @@ function getRSS(): void{
     req.open('GET', 'https://www.sciencedaily.com/rss/top/environment.xml', false);   
     req.send(null);  
     if(req.status == 200) {feed.innerHTML=req.toString();}
-}
-
-
-let parser = new rssparser();
-
-function parseRSS(): void {
-    try{
-        let feed = parser.parseURL('https://www.sciencedaily.com/rss/top/environment.xml');
-        console.log(feed.title);
-    
-        feed.items.forEach((item:any) => {
-        console.log(item.title + ':' + item.link)
-    });
-    }
-    catch{
-        console.log(Error);
-    }
-    
 }
