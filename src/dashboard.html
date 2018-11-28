@@ -12,12 +12,13 @@
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
   <!-- Nucleo Icons -->
   <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="assets/css/black-dashboard.min.css" rel="stylesheet" />
   <link href="dashboardStyle.bundle.css" rel="stylesheet" />
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+
 
 </head>
 
@@ -208,15 +209,19 @@
             <canvas id="pollution4-chart"></canvas>
         </div>
 
+
+  
+        
         <!-- ---------------------------------/\----------------------------------- -->
         <h1>Filter Pollution Data</h1>
         <div class="form-check form-check-inline">
             <label class="form-check-label">
               <input class="form-check-input" type="checkbox" id="inlineCheckbox1">
-              Sort All Charts
+              Show All Data 
               <span class="form-check-sign"></span>
             </label>
           </div>
+          
           <div class="form-check form-check-inline">
             <label class="form-check-label">
               <input class="form-check-input" type="checkbox" id="inlineCheckbox2">
@@ -231,8 +236,29 @@
               <span class="form-check-sign"></span>
             </label>
           </div>
+          <div class="form-check form-check" style="display:none;" id="SortNow">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" id="SortDataAscendingCheckbox">
+              Sort All Label Data Ascending 
+              <span class="form-check-sign"></span>
+            </label>
+          </div>
+          <br>
+          <br>
+         
+                <div>
+                  <p>  Start Date:  <input class="form-control" type="text" id="datepicker1"></p>
+                  <p>  End Date:  <input class="form-control" type="text" id="datepicker2"> </p>
+                  <div class="alert alert-danger" role="alert" style="display:none;" id="DateMissing">
+                      You need to Enter A Start Date First!
+                 </div>
+                  <button class="btn">Filter By Date</button>
+               </div>
+          
       </div>
-
+      
+          
+        
 
 
       

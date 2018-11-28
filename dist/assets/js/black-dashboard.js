@@ -316,7 +316,7 @@ window.onload = function(){
   if(LoggedInUserID == undefined ){
     window.location.href = "404.html"; 
   }
-  console.log(LoggedInUserID);
+  console.log("Logged In UserID: " + LoggedInUserID);
   CreateChartData();
 
 }
@@ -332,8 +332,6 @@ function CreateChartData() {
             myHeartRataData.push(element.heartRate);
             myBloodPressureData.push(parseInt(element.bloodPressure));
         });
-        console.log(myHeartRataData);
-        console.log(myBloodPressureData);
       })
       .catch(function (error){ // error in GET or in generateSuccess?
          console.log(error);
