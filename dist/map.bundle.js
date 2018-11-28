@@ -26255,53 +26255,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// Init elements
+var dataDropDown = document.getElementById("dataDropDown");
+var datePicker = document.getElementById("datePicker");
+var mapDropDown = document.getElementById("mapDropDown");
 var profilePic = document.getElementById("ProfileAvatar");
 var leafMap = document.getElementById("mapid");
+var changeMapBtn = document.getElementById("changeBtn");
+var marker1;
+changeMapBtn.addEventListener("click", ChangeMap);
+// Doc ready + Win onload
 _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_0__(document).ready(function () {
-    var getStoredUserID = localStorage.getItem("key");
-    var LoggedInUserID = parseInt(getStoredUserID);
-    profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
+    var getStoredUserID = parseInt(localStorage.getItem("key"));
+    profilePic.src = "assets/img/avatar" + getStoredUserID + ".jpg";
 });
-var mymap = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["map"](leafMap).setView([51.505, -0.09], 13);
-_node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["tileLayer"]('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-    maxZoom: 18,
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    id: 'mapbox.streets'
-}).addTo(mymap);
-function loadUserData(id) {
-    try {
-        var uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + id;
-        _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_2___default.a.get(uri)
-            .then(function (Response) {
-            var healthdatas = Response.data;
-            if (healthdatas != null) {
-                var testnum_1 = 0;
-                healthdatas.forEach(function (element) {
-                    testnum_1++;
-                    console.log("here" + testnum_1);
-                    var marke11 = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"]([element.latitude, element.longitude]).addTo(mymap);
-                    marke11.bindPopup("HealthDatas<br>HearthRate:" + element.heartRate + "<br>BloodPreasure:" + element.bloodPressure).openPopup();
-                });
-            }
-        });
-    }
-    catch (AxiosError) {
-        console.log(AxiosError);
-    }
-}
 window.onload = function () {
-    var LoggedInUserID = localStorage.getItem("key");
-    var param = parseInt(LoggedInUserID);
-    loadUserData(param);
+    _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["tileLayer"]('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    }).addTo(mymap);
 };
-/*
-https://www.latlong.net/
-You can find lat and long on this website by typing in adresses.
-use that location to put a marker on your map as shown below
-*/
-_node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"]([55.625004, 12.074238]).addTo(mymap).bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+//Map init
+var mymap;
+mymap = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["map"](leafMap).setView([51.505, -0.09], 13);
+// Shows the position after clicking the map
 var popup = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["popup"]();
 function onMapClick(e) {
     popup
@@ -26309,6 +26285,7 @@ function onMapClick(e) {
         .setContent("You clicked the map at " + e.latlng.toString())
         .openOn(mymap);
 }
+//Location
 mymap.on('click', onMapClick);
 function onLocationFound(e) {
     var radius = e.accuracy / 2;
@@ -26319,6 +26296,70 @@ function onLocationFound(e) {
 mymap.on('locationfound', onLocationFound);
 // If you give consent it will show your exact location
 mymap.locate({ setView: true, maxZoom: 16 });
+function ChangeMap() {
+    var date = datePicker.value;
+    console.log(date);
+    var mapType = mapDropDown.value;
+    console.log(mapType);
+    var dataType = dataDropDown.value;
+    console.log(dataType);
+    if (mymap != null) {
+        mymap.remove();
+        mymap = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["map"](leafMap).setView([51.505, -0.09], 13);
+    }
+    if (dataType == "HealthData") {
+        loadUserData(parseInt(localStorage.getItem("key")));
+    }
+    if (dataType == "PollutionData") {
+        loadPollutionData();
+    }
+    if (mapType == "Default") {
+        _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["tileLayer"]('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+            maxZoom: 18,
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            id: 'mapbox.streets'
+        }).addTo(mymap);
+    }
+    if (mapType == "Esri_WorldImagery") {
+        _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["tileLayer"]('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        }).addTo(mymap);
+    }
+}
+// Pollution GETALL
+function loadPollutionData() {
+    try {
+        var uri = "https://berthaprojectusersapi.azurewebsites.net/api/Pollution";
+        _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_2___default.a.get(uri).then(function (Response) {
+            var pollution = Response.data;
+            pollution.forEach(function (element) {
+                var marke11 = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"]([element.latitude, element.longitude]).addTo(mymap);
+            });
+        });
+    }
+    catch (AxiosError) {
+        console.log(AxiosError);
+    }
+}
+// User's all HD
+function loadUserData(id) {
+    try {
+        var uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/SpecificUsersHealthData/" + id;
+        _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_2___default.a.get(uri)
+            .then(function (Response) {
+            var healthDatas = Response.data;
+            healthDatas.forEach(function (element) {
+                var marke11 = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"]([element.latitude, element.longitude]).addTo(mymap);
+                marke11.bindPopup("HealthDatas<br>HearthRate:" + element.heartRate + "<br>BloodPreasure:" + element.bloodPressure).openPopup();
+            });
+        });
+    }
+    catch (AxiosError) {
+        console.log(AxiosError);
+    }
+}
 
 
 /***/ }),
