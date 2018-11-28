@@ -12410,7 +12410,56 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(document).ready(fu
     var getStoredUserID = localStorage.getItem("key");
     var LoggedInUserID = parseInt(getStoredUserID);
     profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
+    getBMIData();
+    getRSS();
 });
+var localuserid = parseInt(localStorage.getItem("key"));
+function getBMIData() {
+    var uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/";
+    _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default.a.get(uri)
+        .then(function (response) {
+        console.log(response.data);
+        var resultweight;
+        var resultheight;
+        response.data.forEach(function (hd) {
+            if (hd.userID === localuserid) {
+                resultweight = hd.weight;
+                resultheight = hd.height;
+            }
+        });
+        console.log(resultweight + " | " + resultheight);
+        var bminmbr = (Math.round(((resultweight / ((resultheight / 100) * (resultheight / 100))))));
+        var bmicolour = "";
+        /* Under 18.5 – you are considered underweight and possibly malnourished.
+        18.5 to 24.9 – you are within a healthy weight range for young and middle-aged adults.
+        25.0 to 29.9 – you are considered overweight.
+        Over 30 – you are considered obese.*/
+        if (bminmbr < 19) {
+            bmicolour = "#9beeff";
+        }
+        else if (bminmbr >= 19 && bminmbr < 25) {
+            bmicolour = "#3fff62";
+        }
+        else if (bminmbr >= 25) {
+            bmicolour = "#ff0a0a";
+        }
+        var bmiinfo = document.getElementById("bmibox");
+        bmiinfo.innerHTML = "BMI: <font color=&quot;${bmicolour}&quot;>" + bminmbr + "</font>";
+    })
+        .catch(function (error) {
+        console.log(error);
+    });
+}
+/* RSS */
+function getRSS() {
+    var feed = document.getElementById("rssfeed");
+    var req = new XMLHttpRequest();
+    req.open('GET', 'https://www.sciencedaily.com/rss/top/environment.xml', false);
+    req.send(null);
+    if (req.status == 200) {
+        feed.innerHTML = req.toString();
+    }
+}
 
 
 /***/ }),
