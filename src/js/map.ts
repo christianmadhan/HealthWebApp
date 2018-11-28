@@ -53,7 +53,8 @@ window.onload = () => {
 };
 
 //Map init
-var mymap = L.map(leafMap).setView([51.505, -0.09], 13);
+let mymap : any;
+mymap = L.map(leafMap).setView([51.505, -0.09], 13);
 
 // Shows the position after clicking the map
 var popup = L.popup();
@@ -81,7 +82,6 @@ mymap.on('locationfound', onLocationFound);
 mymap.locate({setView: true, maxZoom: 16});
   
 function ChangeMap() : void {
-
   let date = datePicker.value
   console.log(date);
 
@@ -90,6 +90,10 @@ function ChangeMap() : void {
   let dataType : string = dataDropDown.value
   console.log(dataType)
 
+  if(mymap != null){
+    mymap.remove();
+    mymap = L.map(leafMap).setView([51.505, -0.09], 13);  
+  }
   
   if(dataType == "HealthData") {loadUserData(parseInt(localStorage.getItem("key")))}
   if(dataType == "PollutionData") { loadPollutionData()}

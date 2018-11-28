@@ -26275,7 +26275,8 @@ window.onload = function () {
     }).addTo(mymap);
 };
 //Map init
-var mymap = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["map"](leafMap).setView([51.505, -0.09], 13);
+var mymap;
+mymap = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["map"](leafMap).setView([51.505, -0.09], 13);
 // Shows the position after clicking the map
 var popup = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["popup"]();
 function onMapClick(e) {
@@ -26302,6 +26303,10 @@ function ChangeMap() {
     console.log(mapType);
     var dataType = dataDropDown.value;
     console.log(dataType);
+    if (mymap != null) {
+        mymap.remove();
+        mymap = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["map"](leafMap).setView([51.505, -0.09], 13);
+    }
     if (dataType == "HealthData") {
         loadUserData(parseInt(localStorage.getItem("key")));
     }
