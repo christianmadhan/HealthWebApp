@@ -6,21 +6,6 @@ import axios, {
 import * as $  from "../../node_modules/jquery/dist/jquery";
 
 
-let UserID: number;
-
-
-interface IPerson {
-    id: number;
-    isAdmin: number;
-    username: string;
-    personPassword: string;
-    FirstName: string;
-    LastName: string;
-    Gender: string;
-    BirthDate: Date;
-}
-
-
 
 $(function () {
 
@@ -147,51 +132,61 @@ $(function () {
 });
 
 
-let UserName: HTMLInputElement = <HTMLInputElement>document.getElementById("name");
-let PassWord: HTMLInputElement = <HTMLInputElement>document.getElementById("pass");
-let LogInBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("loginBtn");
+
+
 
 window.onload = function () {
-    UserName.value = "";
-    PassWord.value = "";
+    UserTxt.value = "";
+    EmailTxt.value = "";
 };
 
+let UserTxt: HTMLInputElement = <HTMLInputElement>document.getElementById("name");
+let EmailTxt: HTMLInputElement = <HTMLInputElement>document.getElementById("email");
+let ForgotBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("forgotButton");
+
+ForgotBtn.addEventListener("click", SendForgot);
+
+interface IOneUser {
+    userName: string;
+    password: string;
+    email: string;
+}
 
 
-/*
-    In the login function we just need to evaluated the status code
-    which the getJSOnAsync function returns (Look at the button for doc.). The method returns
-    a status code an a object. First we check for the status code to check if it's 200.
-    if that's the case, then we want to know which user is logged in. We save the id of the 
-    user which is logged in, in a variable and then store that variable in the local storage.
-    the local storage behave the same way as a cookie. After we have storage the data, we
-    redirect the user to the dashboard page.
 
-*/
-function Login(): void {
+function SendForgot(): void {
 
-    getJSONAsync().then(result => {
-        if (result.status == 200) {
-            UserID =  result.data.id;
-            localStorage.setItem("key", UserID.toString());
-            window.location.href = "home.html";
-        }
-    }).catch(error => {
-        DisplayWrongUsernameOrPassword();
-        console.log(error);
-        
-    });
+    try {
+        let uri: string = "https://berthaprojectusersapi.azurewebsites.net/api/Users";
+        let inputUserName: string = UserTxt.value;
+        let inputEmail: string = EmailTxt.value;
 
+        axios.get<IOneUser[]>(uri)
+        .then(function (response: AxiosResponse<IOneUser[]>): void {
+            console.log(response.data);
 
+            response.data.forEach((user: IOneUser) => {
+                if (inputUserName === user.userName && inputEmail === user.email){
+                    console.log("SUCCESS! " + user.userName + " " + user.email);
+                    window.alert("Password reminder has been sent.\nPlease, check your inbox!");
+                    SendEmail();
+                }
+                else{
+                    DisplayWrongUsernameOrPassword();
+                }
+            });
+        })
+        .catch(function (error: AxiosError): void {
+            DisplayWrongUsernameOrPassword();
+            console.log(error);
+        })
+    } catch (error) {
+
+    }
 
 }
 
-/*
-    If the user input was wrong we want to show
-    that the login attemt was failed.
-    so we change the icon on the button to a skull
-    and then show some text which is hidden in the html as default.
-*/
+
 function DisplayWrongUsernameOrPassword() {
     var x = document.getElementById("wrong");
     if (x.style.display === "none") {
@@ -202,70 +197,7 @@ function DisplayWrongUsernameOrPassword() {
     }
 }
 
-LogInBtn.addEventListener("click", Login);
 
-// Async/Await approach
-// The async keyword will automatically create a new Promise and return it.
-/* 
-    This method post the data, that the user has typed in the username and password fields.
-    It post it to a web api, in a controller authenticate the data. In the controller, we
-    made a foreach loop going through each user object and test if the data is valid.
-    if both username and password is valid, it will respon with a status code of 200
-    and the user object, where the password is set to null.
-*/
-async function getJSONAsync() {
-
-    try {
-        let uri: string = "https://berthaprojectusersapi.azurewebsites.net/api/Authentication";
-        let inputUserName: string = UserName.value;
-        let inputPassword: string = PassWord.value;
-        let Attempt: boolean;
-        let AdminAttempt: boolean;
-
-        // The await keyword saves us from having to write a .then() block.
-        let json = await axios.post(uri, {
-            username: inputUserName,
-            password: inputPassword
-        });
+function SendEmail(): void{
     
-        return json;
-    } catch (error) {
-
-    }
-
-}
-
-
-// REGISTRATION FORM
-let nextbtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("nextbutton");
-let regnamefield: HTMLInputElement = <HTMLInputElement>document.getElementById("regname");
-let regpassfield: HTMLInputElement = <HTMLInputElement>document.getElementById("regpass");
-let regemailfield: HTMLInputElement = <HTMLInputElement>document.getElementById("regemail");
-
-nextbtn.addEventListener("click", submitform);
-
-function submitform(): void {
-    let newuser = {
-        "isAdmin": 0,
-        "userName": regnamefield.value,
-        "password": regpassfield.value,        
-        "firstName": "",
-        "lastName": "",
-        "gender": "",
-        "birthDate": "1990.01.01",
-        "pictureURL": "",
-        "email": regemailfield.value
-    }
-
-    console.log(newuser);
-
-    let uri: string = "https://berthaprojectusersapi.azurewebsites.net/api/Users";
-    axios.post(uri, newuser)
-
-        .then((Response: AxiosResponse) => {
-            let resp = Response.data
-            console.log(resp)
-        })
-
-        // CLOSE REGISTRATION WINDOW
 }
