@@ -12394,7 +12394,7 @@ function doGetAll() {
             }
             ;
             if (hd.userID === localuserid) {
-                result += "<tr><td>" + hd.id + "</td><td>" + hd.weight + " kg</td><td>" + hd.height + " cm</td><td>" + smokerstatus + "</td><td>" + hd.bloodPressure + " mmHg</td><td>" + hd.heartRate + " bpm</td><td>" + hd.latitude + "</td><td>" + hd.longitude + "</td></tr>";
+                result += "<tr><td>" + hd.id + "</td><td>" + hd.weight + " kg</td><td>" + hd.height + " cm</td><td>" + smokerstatus + "</td><td>" + hd.bloodPressure + " mmHg</td><td>" + hd.heartRate + " bpm</td><td>" + hd.latitude + "</td><td>" + hd.longitude + "</td><td>" + hd.recordTime + "</td></tr>";
             }
         });
         console.log(result);

@@ -14,6 +14,7 @@ interface IHealthData {
     userID: number;
     latitude: number;
     longitude: number;
+    recordTime: Date
 }
 
 /* GET ALL HEALTHDATA */
@@ -37,7 +38,7 @@ function doGetAll(): void {
             response.data.forEach((hd: IHealthData) => {
                 if (hd.isSmoker === 0){ smokerstatus = "No" } else { smokerstatus = "Yes" };
                 if (hd.userID === localuserid){
-                    result += "<tr><td>" + hd.id + "</td><td>" + hd.weight + " kg</td><td>" + hd.height + " cm</td><td>" + smokerstatus + "</td><td>" + hd.bloodPressure + " mmHg</td><td>" + hd.heartRate + " bpm</td><td>" + hd.latitude + "</td><td>" + hd.longitude + "</td></tr>";
+                    result += "<tr><td>" + hd.id + "</td><td>" + hd.weight + " kg</td><td>" + hd.height + " cm</td><td>" + smokerstatus + "</td><td>" + hd.bloodPressure + " mmHg</td><td>" + hd.heartRate + " bpm</td><td>" + hd.latitude + "</td><td>" + hd.longitude + "</td><td>" + hd.recordTime + "</td></tr>";
                 }                
             });
             console.log(result);
