@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -12475,7 +12475,7 @@ module.exports = __webpack_require__.p + "user.html";
 
 /***/ }),
 
-/***/ 5:
+/***/ 6:
 /*!**********************************************!*\
   !*** multi ./src/user.html ./src/js/user.ts ***!
   \**********************************************/
