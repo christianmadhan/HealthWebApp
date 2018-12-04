@@ -26305,7 +26305,7 @@ function ChangeMap() {
     console.log(dataType);
     if (mymap != null) {
         mymap.remove();
-        mymap = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["map"](leafMap).setView([51.505, -0.09], 13);
+        mymap = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["map"](leafMap).setView([55.643020, 12.076020], 13);
     }
     if (dataType == "HealthData") {
         loadUserData(parseInt(localStorage.getItem("key")));
@@ -26336,6 +26336,13 @@ function loadPollutionData() {
             var pollution = Response.data;
             pollution.forEach(function (element) {
                 var marke11 = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["marker"]([element.latitude, element.longitude]).addTo(mymap);
+                //L.circle(marke11.latlng, marke11.accuracy / 2).addTo(mymap)
+                var zone = _node_modules_leaflet_dist_leaflet_src__WEBPACK_IMPORTED_MODULE_1__["circle"]([element.latitude, element.longitude], {
+                    color: 'blue',
+                    fillColor: 'blue',
+                    opacity: .75,
+                    radius: 50000
+                }).addTo(mymap);
             });
         });
     }

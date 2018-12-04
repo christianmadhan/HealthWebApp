@@ -92,7 +92,7 @@ function ChangeMap() : void {
 
   if(mymap != null){
     mymap.remove();
-    mymap = L.map(leafMap).setView([51.505, -0.09], 13);  
+    mymap = L.map(leafMap).setView([55.643020, 12.076020], 13);  
   }
   
   if(dataType == "HealthData") {loadUserData(parseInt(localStorage.getItem("key")))}
@@ -123,8 +123,14 @@ function loadPollutionData() : void {
       let pollution : IPollution[] = Response.data 
       pollution.forEach(element => {
         let marke11 = L.marker([element.latitude, element.longitude]).addTo(mymap)
-        });
-
+        //L.circle(marke11.latlng, marke11.accuracy / 2).addTo(mymap)
+        let zone = L.circle([element.latitude , element.longitude], {
+          color: 'blue',
+          fillColor : 'blue',
+          opacity : .75,
+          radius : 50000
+        }).addTo(mymap);
+      });
     });
   }
   catch(AxiosError){console.log(AxiosError)}
