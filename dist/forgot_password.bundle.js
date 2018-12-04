@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -12357,86 +12357,184 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ "./src/js/tables.ts":
-/*!**************************!*\
-  !*** ./src/js/tables.ts ***!
-  \**************************/
+/***/ "./src/forgot_password.html":
+/*!**********************************!*\
+  !*** ./src/forgot_password.html ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "forgot_password.html";
+
+/***/ }),
+
+/***/ "./src/js/forgot_password.ts":
+/*!***********************************!*\
+  !*** ./src/js/forgot_password.ts ***!
+  \***********************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/axios */ "./node_modules/axios/index.js");
-/* harmony import */ var _node_modules_axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/axios/index */ "./node_modules/axios/index.js");
+/* harmony import */ var _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/jquery/dist/jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__);
 
 
-/* GET ALL HEALTHDATA */
-var getdatabtn = document.getElementById("getdatabutton");
-var profilePic = document.getElementById("ProfileAvatar");
-getdatabtn.addEventListener("click", doGetAll);
-var localuserid = parseInt(localStorage.getItem("key"));
-console.log("local user ID: " + localuserid);
-function doGetAll() {
-    var uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/";
-    _node_modules_axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(uri)
-        .then(function (response) {
-        console.log(response.data);
-        var result = "";
-        var smokerstatus = "No data";
-        response.data.forEach(function (hd) {
-            if (hd.isSmoker === 0) {
-                smokerstatus = "No";
-            }
-            else {
-                smokerstatus = "Yes";
-            }
-            ;
-            if (hd.userID === localuserid) {
-                result += "<tr><td>" + hd.id + "</td><td>" + hd.weight + " kg</td><td>" + hd.height + " cm</td><td>" + smokerstatus + "</td><td>" + hd.bloodPressure + " mmHg</td><td>" + hd.heartRate + " bpm</td><td>" + hd.latitude + "</td><td>" + hd.longitude + "</td><td>" + hd.recordTime + "</td></tr>";
-            }
+_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(function () {
+    _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".input input").focus(function () {
+        _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(this).parent(".input").each(function () {
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__("label").css({
+                "line-height": "18px",
+                "font-size": "18px",
+                "font-weight": "100",
+                "top": "0px"
+            });
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".spin").css({
+                "width": "100%"
+            });
         });
-        console.log(result);
-        var tablecontent = document.getElementById("simpletablecontent");
-        tablecontent.innerHTML = result;
-    })
-        .catch(function (error) {
-        console.log(error);
+    }).blur(function () {
+        _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".spin").css({
+            "width": "0px"
+        });
+        if (_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(this).val() == "") {
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(this).parent(".input").each(function () {
+                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__("label").css({
+                    "line-height": "60px",
+                    "font-size": "24px",
+                    "font-weight": "300",
+                    "top": "10px"
+                });
+            });
+        }
     });
-}
-_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(document).ready(function () {
-    var getStoredUserID = localStorage.getItem("key");
-    var LoggedInUserID = parseInt(getStoredUserID);
-    profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
+    _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".button").click(function (e) {
+        var pX = e.pageX, pY = e.pageY, oX = parseInt(_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(this).offset().left), oY = parseInt(_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(this).offset().top);
+        _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(this).append('<span class="click-efect x-' + oX + ' y-' + oY + '" style="margin-left:' + (pX - oX) + 'px;margin-top:' + (pY - oY) + 'px;"></span>');
+        _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__('.x-' + oX + '.y-' + oY + '').animate({
+            "width": "500px",
+            "height": "500px",
+            "top": "-250px",
+            "left": "-250px",
+        }, 600);
+        _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__("button").addClass('active');
+    });
+    _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".alt-2").click(function () {
+        if (!_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(this).hasClass('material-button')) {
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".shape").css({
+                "width": "100%",
+                "height": "100%",
+                "transform": "rotate(0deg)"
+            });
+            setTimeout(function () {
+                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".overbox").css({
+                    "overflow": "initial"
+                });
+            }, 600);
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(this).animate({
+                "width": "140px",
+                "height": "140px"
+            }, 500, function () {
+                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".box").removeClass("back");
+                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(this).removeClass('active');
+            });
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".overbox .title").fadeOut(300);
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".overbox .input").fadeOut(300);
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".overbox .button").fadeOut(300);
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".alt-2").addClass('material-buton');
+        }
+    });
+    _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".material-button").click(function () {
+        if (_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(this).hasClass('material-button')) {
+            setTimeout(function () {
+                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".overbox").css({
+                    "overflow": "hidden"
+                });
+                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".box").addClass("back");
+            }, 200);
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(this).addClass('active').animate({
+                "width": "700px",
+                "height": "700px"
+            });
+            setTimeout(function () {
+                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".shape").css({
+                    "width": "50%",
+                    "height": "50%",
+                    "transform": "rotate(45deg)"
+                });
+                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".overbox .title").fadeIn(300);
+                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".overbox .input").fadeIn(300);
+                _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".overbox .button").fadeIn(300);
+            }, 700);
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(this).removeClass('material-button');
+        }
+        if (_node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".alt-2").hasClass('material-buton')) {
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".alt-2").removeClass('material-buton');
+            _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(".alt-2").addClass('material-button');
+        }
+    });
 });
+window.onload = function () {
+    UserTxt.value = "";
+    EmailTxt.value = "";
+};
+var UserTxt = document.getElementById("name");
+var EmailTxt = document.getElementById("email");
+var ForgotBtn = document.getElementById("forgotButton");
+ForgotBtn.addEventListener("click", SendForgot);
+function SendForgot() {
+    try {
+        var uri = "https://berthaprojectusersapi.azurewebsites.net/api/Authentication/ForgetPassword";
+        var inputUserName = UserTxt.value;
+        var inputEmail = EmailTxt.value;
+        var userModel = {
+            "userName": inputUserName,
+            "email": inputEmail
+        };
+        _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default.a.post(uri, userModel)
+            .then(function (Response) {
+            var resp = Response.data;
+            console.log(resp);
+            window.alert("Password remainder has been sent!\nCheck your inbox!");
+            window.location.href = "index.htm";
+        })
+            .catch(function (error) {
+            DisplayWrongUsernameOrPassword();
+            console.log(error);
+        });
+    }
+    catch (error) {
+    }
+}
+function DisplayWrongUsernameOrPassword() {
+    var x = document.getElementById("wrong");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        document.getElementById("checkNot").className = 'fas fa-skull-crossbones';
+    }
+    else {
+        x.style.display = "none";
+    }
+}
 
 
 /***/ }),
 
-/***/ "./src/tables.html":
-/*!*************************!*\
-  !*** ./src/tables.html ***!
-  \*************************/
+/***/ 1:
+/*!********************************************************************!*\
+  !*** multi ./src/js/forgot_password.ts ./src/forgot_password.html ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "tables.html";
-
-/***/ }),
-
-/***/ 5:
-/*!**************************************************!*\
-  !*** multi ./src/tables.html ./src/js/tables.ts ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! ./src/tables.html */"./src/tables.html");
-module.exports = __webpack_require__(/*! ./src/js/tables.ts */"./src/js/tables.ts");
+__webpack_require__(/*! ./src/js/forgot_password.ts */"./src/js/forgot_password.ts");
+module.exports = __webpack_require__(/*! ./src/forgot_password.html */"./src/forgot_password.html");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=tables.bundle.js.map
+//# sourceMappingURL=forgot_password.bundle.js.map

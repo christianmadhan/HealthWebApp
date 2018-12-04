@@ -12,6 +12,7 @@ module.exports = {
   entry:
   {
     index: ['./src/js/index.ts','./src/index.htm','./src/scss/indexStyle.scss',],
+    forgot_password: ['./src/js/forgot_password.ts','./src/forgot_password.html',],
     dashboard: ['./src/dashboard.html','./src/js/dashboard.ts','./src/scss/dashboardStyle.scss'],
     map: ['./src/map.html','./src/js/map.ts','./src/scss/mapStyle.scss'],
     notifications: ['./src/notifications.html','./src/js/notifications.ts'],
