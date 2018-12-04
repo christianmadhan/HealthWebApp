@@ -12487,22 +12487,19 @@ var ForgotBtn = document.getElementById("forgotButton");
 ForgotBtn.addEventListener("click", SendForgot);
 function SendForgot() {
     try {
-        var uri = "https://berthaprojectusersapi.azurewebsites.net/api/Users";
-        var inputUserName_1 = UserTxt.value;
-        var inputEmail_1 = EmailTxt.value;
-        _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default.a.get(uri)
-            .then(function (response) {
-            console.log(response.data);
-            response.data.forEach(function (user) {
-                if (inputUserName_1 === user.userName && inputEmail_1 === user.email) {
-                    console.log("SUCCESS! " + user.userName + " " + user.email);
-                    window.alert("Password reminder has been sent.\nPlease, check your inbox!");
-                    SendEmail();
-                }
-                else {
-                    DisplayWrongUsernameOrPassword();
-                }
-            });
+        var uri = "https://berthaprojectusersapi.azurewebsites.net/api/Authentication/ForgetPassword";
+        var inputUserName = UserTxt.value;
+        var inputEmail = EmailTxt.value;
+        var userModel = {
+            "userName": inputUserName,
+            "email": inputEmail
+        };
+        _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default.a.post(uri, userModel)
+            .then(function (Response) {
+            var resp = Response.data;
+            console.log(resp);
+            window.alert("Password remainder has been sent!\nCheck your inbox!");
+            window.location.href = "index.htm";
         })
             .catch(function (error) {
             DisplayWrongUsernameOrPassword();
@@ -12521,8 +12518,6 @@ function DisplayWrongUsernameOrPassword() {
     else {
         x.style.display = "none";
     }
-}
-function SendEmail() {
 }
 
 

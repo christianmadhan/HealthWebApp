@@ -146,35 +146,24 @@ let ForgotBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById("f
 
 ForgotBtn.addEventListener("click", SendForgot);
 
-interface IOneUser {
-    userName: string;
-    password: string;
-    email: string;
-}
-
-
 
 function SendForgot(): void {
-
     try {
-        let uri: string = "https://berthaprojectusersapi.azurewebsites.net/api/Users";
+        let uri: string = "https://berthaprojectusersapi.azurewebsites.net/api/Authentication/ForgetPassword";
         let inputUserName: string = UserTxt.value;
         let inputEmail: string = EmailTxt.value;
 
-        axios.get<IOneUser[]>(uri)
-        .then(function (response: AxiosResponse<IOneUser[]>): void {
-            console.log(response.data);
+        let userModel = {
+            "userName": inputUserName,
+            "email": inputEmail
+        }
 
-            response.data.forEach((user: IOneUser) => {
-                if (inputUserName === user.userName && inputEmail === user.email){
-                    console.log("SUCCESS! " + user.userName + " " + user.email);
-                    window.alert("Password reminder has been sent.\nPlease, check your inbox!");
-                    SendEmail();
-                }
-                else{
-                    DisplayWrongUsernameOrPassword();
-                }
-            });
+        axios.post(uri, userModel)
+        .then((Response: AxiosResponse) => {
+            let resp = Response.data
+            console.log(resp)
+            window.alert("Password remainder has been sent!\nCheck your inbox!");
+            window.location.href="index.htm"
         })
         .catch(function (error: AxiosError): void {
             DisplayWrongUsernameOrPassword();
@@ -195,9 +184,4 @@ function DisplayWrongUsernameOrPassword() {
     } else {
         x.style.display = "none";
     }
-}
-
-
-function SendEmail(): void{
-    
 }
