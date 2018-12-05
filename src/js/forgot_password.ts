@@ -162,7 +162,7 @@ function SendForgot(): void {
         .then((Response: AxiosResponse) => {
             let resp = Response.data
             console.log(resp)
-            window.alert("Password remainder has been sent!\nCheck your inbox!");
+            window.alert("Password reminder has been sent!\nCheck your inbox!");
             window.location.href="index.htm"
         })
         .catch(function (error: AxiosError): void {
