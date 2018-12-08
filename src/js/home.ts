@@ -17,8 +17,6 @@ interface IUser {
 }
 
 $(document).ready(function() {
-    let getStoredUserID = localStorage.getItem("key");
-    let loggedInUserId = parseInt(getStoredUserID);
     loadUserData();    
 });
 

@@ -12387,8 +12387,6 @@ var loggedInUserId = parseInt(localStorage.getItem("key"));
 var firstname = document.getElementById("firstname");
 var user;
 _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(document).ready(function () {
-    var getStoredUserID = localStorage.getItem("key");
-    var loggedInUserId = parseInt(getStoredUserID);
     loadUserData();
 });
 function loadUserData() {

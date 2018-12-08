@@ -12498,7 +12498,7 @@ function SendForgot() {
             .then(function (Response) {
             var resp = Response.data;
             console.log(resp);
-            window.alert("Password remainder has been sent!\nCheck your inbox!");
+            window.alert("Password reminder has been sent!\nCheck your inbox!");
             window.location.href = "index.htm";
         })
             .catch(function (error) {

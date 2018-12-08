@@ -15,7 +15,7 @@ module.exports = {
     forgot_password: ['./src/js/forgot_password.ts','./src/forgot_password.html',],
     dashboard: ['./src/dashboard.html','./src/js/dashboard.ts','./src/scss/dashboardStyle.scss'],
     map: ['./src/map.html','./src/js/map.ts','./src/scss/mapStyle.scss'],
-    notifications: ['./src/notifications.html','./src/js/notifications.ts'],
+    notifications: ['./src/notifications.html','./src/js/notifications.ts','./src/scss/NotificationsStyle.scss'],
     tables: ['./src/tables.html','./src/js/tables.ts'],
     user: ['./src/user.html','./src/js/user.ts'],
     home: ['./src/home.html','./src/js/home.ts'],
