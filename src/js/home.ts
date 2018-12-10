@@ -30,7 +30,6 @@ function loadUserData() : void {
         axios.get<IUser>(uri)
         .then((Response : AxiosResponse<IUser>)=>{ 
             let user : IUser = Response.data
-            console.log(user) 
             
             firstname.innerHTML = user.firstName
         }) 
@@ -49,8 +48,6 @@ $(document).ready(function() {
      profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
 
     getBMIData();
-
-    getRSS();
 });
 
 
@@ -69,7 +66,6 @@ function getBMIData(): void {
 
     axios.get<IBMIData[]>(uri)
         .then(function (response: AxiosResponse<IBMIData[]>): void {
-            console.log(response.data);
             let resultweight: number;
             let resultheight: number;
 
@@ -96,21 +92,4 @@ function getBMIData(): void {
         .catch(function (error: AxiosError): void {
             console.log(error);
         })
-}
-
-
-
-
-
-
-
-
-/* RSS */
-function getRSS(): void{
-    let feed: HTMLDivElement = <HTMLDivElement>document.getElementById("rssfeed");
-
-    var req = new XMLHttpRequest();  
-    req.open('GET', 'https://www.sciencedaily.com/rss/top/environment.xml', false);   
-    req.send(null);  
-    if(req.status == 200) {feed.innerHTML=req.toString();}
 }

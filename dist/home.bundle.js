@@ -12395,7 +12395,6 @@ function loadUserData() {
         _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default.a.get(uri)
             .then(function (Response) {
             var user = Response.data;
-            console.log(user);
             firstname.innerHTML = user.firstName;
         });
     }
@@ -12409,14 +12408,12 @@ _node_modules_jquery_dist_jquery__WEBPACK_IMPORTED_MODULE_1__(document).ready(fu
     var LoggedInUserID = parseInt(getStoredUserID);
     profilePic.src = "assets/img/avatar" + LoggedInUserID + ".jpg";
     getBMIData();
-    getRSS();
 });
 var localuserid = parseInt(localStorage.getItem("key"));
 function getBMIData() {
     var uri = "https://berthaprojectusersapi.azurewebsites.net/api/HealthDatas/";
     _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default.a.get(uri)
         .then(function (response) {
-        console.log(response.data);
         var resultweight;
         var resultheight;
         response.data.forEach(function (hd) {
@@ -12447,16 +12444,6 @@ function getBMIData() {
         .catch(function (error) {
         console.log(error);
     });
-}
-/* RSS */
-function getRSS() {
-    var feed = document.getElementById("rssfeed");
-    var req = new XMLHttpRequest();
-    req.open('GET', 'https://www.sciencedaily.com/rss/top/environment.xml', false);
-    req.send(null);
-    if (req.status == 200) {
-        feed.innerHTML = req.toString();
-    }
 }
 
 
